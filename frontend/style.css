@@ -1,0 +1,432 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #1e63c6;
+    --primary-dark: #154ea6;
+    --gold: #ffcc00;
+    --text: #333;
+    --text-light: #666;
+    --bg: #f5f7fa;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+.page {
+    display: none;
+    min-height: 100vh;
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.page.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 520px;
+    padding: 12px 16px;
+    background: white;
+    border-bottom: 1px solid #eee;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+
+.nav-left {
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+    color: var(--primary);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.emola-logo-text {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.emola-logo-text .emola {
+    color: var(--primary);
+}
+
+.emola-logo-text .mola {
+    color: var(--gold);
+}
+
+/* Landing */
+.land-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 520px;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.land-center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.land-card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+.land-card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+}
+
+.land-card p {
+    color: var(--text-light);
+    margin-bottom: 24px;
+}
+
+.land-footer {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #aaa;
+    padding: 10px;
+}
+
+/* Buttons */
+.btn-grad {
+    background: linear-gradient(to right, var(--primary), var(--primary-dark));
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    transition: transform 0.2s;
+}
+
+.btn-grad:hover {
+    transform: translateY(-2px);
+}
+
+.btn-gray {
+    background: #f0f0f0;
+    color: #555;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.step-btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+/* Step Cards */
+.step-center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.step-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 400px;
+}
+
+.step-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.step-sub {
+    color: var(--text-light);
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+}
+
+.prog-row {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.prog-seg {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: #e0e0e0;
+}
+
+.prog-seg.now {
+    background: var(--primary);
+}
+
+.prog-seg.done {
+    background: var(--gold);
+}
+
+/* Form Fields */
+.field {
+    margin-bottom: 16px;
+}
+
+.field label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+.field input,
+.field textarea,
+.field select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.field-row {
+    display: flex;
+    gap: 10px;
+}
+
+.field-row .field {
+    flex: 1;
+}
+
+.phone-row {
+    display: flex;
+    align-items: center;
+}
+
+.ph-pre {
+    background: #f0f0f0;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.phone-row input {
+    border-radius: 0 8px 8px 0;
+}
+
+.field-hint {
+    font-size: 0.7rem;
+    color: #aaa;
+    margin-top: 4px;
+}
+
+/* Range Sliders */
+.range-ends {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: #aaa;
+    margin-top: 4px;
+}
+
+.calc-box {
+    background: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.calc-row2 {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    padding: 4px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.calc-row2:last-child {
+    border-bottom: none;
+}
+
+.calc-row2 .cv {
+    font-weight: 500;
+}
+
+/* Error Box */
+.msg-box {
+    display: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+}
+
+.msg-box.error {
+    background: #fdecea;
+    color: #c0392b;
+    border-left: 4px solid #c0392b;
+}
+
+.msg-box.show {
+    display: block;
+}
+
+/* PIN */
+.pin-label {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+.pin-attempts {
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+    color: #777;
+}
+
+.pin-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.pin-box {
+    width: 45px;
+    height: 50px;
+    text-align: center;
+    font-size: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.pin-eye, .pin-delete {
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: #f0f0f0;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    align-self: center;
+}
+
+/* OTP */
+.otp-section {
+    margin-bottom: 16px;
+}
+
+.otp-inputs {
+    display: flex;
+    gap: 8px;
+}
+
+.otp-box {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.otp-delete {
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: #f0f0f0;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-left: 8px;
+}
+
+/* Processing */
+.proc-wrap {
+    text-align: center;
+}
+
+.proc-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+/* Approval */
+.appr-wrap {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+/* Utility */
+.btn-resend.hidden {
+    display: none;
+}
+
+@media (max-width: 480px) {
+    .page {
+        padding: 10px;
+    }
+    .step-card {
+        padding: 16px;
+    }
+    .pin-row {
+        gap: 6px;
+    }
+    .pin-box {
+        width: 40px;
+        height: 45px;
+    }
+}
