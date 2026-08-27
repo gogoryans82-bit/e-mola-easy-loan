@@ -5,9 +5,9 @@
 }
 
 :root {
-    --primary: #00A651;      /* Movitel Green */
+    --primary: #00A651;
     --primary-dark: #007A3E;
-    --gold: #FFD700;         /* Yellow accent */
+    --gold: #FFD700;
     --text: #333;
     --text-light: #666;
     --bg: #f5f7fa;
@@ -85,11 +85,28 @@ body {
     font-size: 1.2rem;
 }
 
+/* Language toggle */
+.lang-btn {
+    background: #f0f0f0;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    color: var(--primary);
+}
+
+.lang-btn:hover {
+    background: #e0e0e0;
+}
+
 /* Landing */
 .land-nav {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
     max-width: 520px;
     padding: 20px;
