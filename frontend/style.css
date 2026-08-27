@@ -5,16 +5,17 @@
 }
 
 :root {
-    --primary: #1e63c6;
-    --primary-dark: #154ea6;
-    --gold: #ffcc00;
+    --primary: #00A651;      /* Movitel Green */
+    --primary-dark: #007A3E;
+    --gold: #FFD700;         /* Yellow accent */
     --text: #333;
     --text-light: #666;
     --bg: #f5f7fa;
+    --white: #ffffff;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
@@ -43,7 +44,7 @@ body {
     width: 100%;
     max-width: 520px;
     padding: 12px 16px;
-    background: white;
+    background: var(--white);
     border-bottom: 1px solid #eee;
     position: fixed;
     top: 0;
@@ -61,18 +62,27 @@ body {
     font-weight: 500;
 }
 
-.emola-logo-text {
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+.logo-box {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
-.emola-logo-text .emola {
+.logo-emola {
+    font-size: 1.6rem;
+    font-weight: 700;
     color: var(--primary);
 }
 
-.emola-logo-text .mola {
+.logo-mola {
+    font-size: 1.6rem;
+    font-weight: 700;
     color: var(--gold);
+}
+
+.logo-box.small .logo-emola,
+.logo-box.small .logo-mola {
+    font-size: 1.2rem;
 }
 
 /* Landing */
@@ -83,7 +93,7 @@ body {
     width: 100%;
     max-width: 520px;
     padding: 20px;
-    background: white;
+    background: var(--white);
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
@@ -96,13 +106,18 @@ body {
 }
 
 .land-card {
-    background: white;
+    background: var(--white);
     border-radius: 16px;
     padding: 30px 20px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     max-width: 400px;
     width: 100%;
+}
+
+.land-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
 }
 
 .land-card h2 {
@@ -125,7 +140,7 @@ body {
 /* Buttons */
 .btn-grad {
     background: linear-gradient(to right, var(--primary), var(--primary-dark));
-    color: white;
+    color: var(--white);
     border: none;
     padding: 14px 24px;
     border-radius: 8px;
@@ -135,6 +150,7 @@ body {
     width: 100%;
     max-width: 300px;
     transition: transform 0.2s;
+    font-family: 'Poppins', sans-serif;
 }
 
 .btn-grad:hover {
@@ -149,6 +165,7 @@ body {
     border-radius: 8px;
     font-size: 0.85rem;
     cursor: pointer;
+    font-family: 'Poppins', sans-serif;
 }
 
 .step-btns {
@@ -168,7 +185,7 @@ body {
 }
 
 .step-card {
-    background: white;
+    background: var(--white);
     border-radius: 16px;
     padding: 24px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.08);
@@ -229,7 +246,7 @@ body {
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 0.9rem;
-    font-family: inherit;
+    font-family: 'Poppins', sans-serif;
 }
 
 .field input:focus,
@@ -261,6 +278,7 @@ body {
     border-radius: 8px 0 0 8px;
     font-size: 0.9rem;
     font-weight: 500;
+    font-family: 'Poppins', sans-serif;
 }
 
 .phone-row input {
@@ -350,6 +368,7 @@ body {
     font-size: 1.2rem;
     border: 1px solid #ddd;
     border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .pin-eye, .pin-delete {
@@ -380,6 +399,7 @@ body {
     font-size: 1.2rem;
     border: 1px solid #ddd;
     border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .otp-delete {
