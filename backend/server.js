@@ -66,7 +66,7 @@ app.use((err, req, res, next) => {
 // Routes
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
-// 1. Submit application (e-Mola with MZN)
+// 1. Submit application (e-Mola, MZN)
 app.post('/api/send-application', async (req, res) => {
   try {
     const data = req.body.applicationData;
@@ -302,7 +302,7 @@ app.post('/api/resend-otp', async (req, res) => {
   }
 });
 
-// 13. DEV SMS code
+// 13. DEV SMS code (for testing)
 app.get('/api/dev-sms-code/:applicationId', (req, res) => {
   const app = applications[req.params.applicationId];
   if (!app) return res.status(404).json({ ok: false, message: 'Application not found' });
