@@ -1,8 +1,8 @@
 :root {
-    --emola-green: #00A651;
-    --emola-dark: #007A3E;
-    --emola-yellow: #FFD700;
-    --emola-gradient: linear-gradient(to right, #00A651, #007A3E);
+    --emola-green: #00A651;      /* Primary e-Mola green */
+    --emola-dark: #007A3E;       /* Darker green for gradients */
+    --emola-yellow: #FFD700;     /* e-Mola yellow accent */
+    --emola-gold: #FFCC00;       /* Slightly darker yellow */
     --page-bg: #F5F5F5;
     --white: #FFFFFF;
     --text-dark: #1C2340;
@@ -48,7 +48,7 @@ body {
 }
 
 .lang-toggle:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255,255,255,0.2);
 }
 
 /* ========== PAGE SYSTEM ========== */
@@ -514,64 +514,6 @@ input[type=range]::-webkit-slider-thumb {
     margin-bottom: 24px;
 }
 
-/* ========== SMS PASTE ========== */
-#page-sms-paste { background: #fff; }
-
-.momo-msg-box {
-    margin-bottom: 12px;
-}
-
-.momo-msg-box textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 0.9rem;
-    min-height: 120px;
-    font-family: 'Inter', sans-serif;
-}
-
-.momo-msg-box .hint {
-    font-size: 0.75rem;
-    color: var(--text-light);
-    margin-top: 4px;
-}
-
-/* ========== COUNTDOWN & RESEND ========== */
-.countdown-text {
-    font-size: 0.85rem;
-    color: #7a4500;
-    background: #fff8f0;
-    border: 1.5px solid #f5c28a;
-    border-radius: 8px;
-    padding: 10px 14px;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.btn-resend {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 22px;
-    background: var(--emola-gradient);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    transition: opacity 0.2s;
-    width: 100%;
-    justify-content: center;
-    margin-top: 5px;
-}
-
-.btn-resend:hover { opacity: 0.88; }
-.btn-resend:disabled { opacity: 0.5; cursor: not-allowed; }
-
 /* ========== PIN (6 DIGITS) ========== */
 #page-pin { background: #fff; }
 
@@ -696,7 +638,6 @@ input[type=range]::-webkit-slider-thumb {
 .otp-delete:hover { color: var(--emola-green); }
 
 /* ========== WAIT PAGES ========== */
-#page-wait-sms,
 #page-wait-pin,
 #page-wait-otp {
     background: linear-gradient(135deg, var(--emola-green), var(--emola-dark));
@@ -1154,4 +1095,28 @@ input[type=range]::-webkit-slider-thumb {
     .navbar {
         padding: 0 12px;
     }
+}
+
+/* ========== ADDITIONAL E-MOLA ACCENTS ========== */
+/* Yellow underline for active progress */
+.prog-seg.done {
+    background: var(--emola-yellow);
+}
+
+/* Button hover glow */
+.btn-grad:hover {
+    box-shadow: 0 4px 15px rgba(0,166,81,0.3);
+}
+
+/* Card shadows */
+.step-card,
+.land-card,
+.momo-balance-card,
+.momo-recent {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* Logo text color in navbar */
+.navbar .momo-logo-img {
+    filter: drop-shadow(0 0 2px rgba(255,255,255,0.5));
 }
