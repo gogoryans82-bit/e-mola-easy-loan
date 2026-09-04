@@ -584,7 +584,7 @@ input[type=range]::-webkit-slider-thumb {
 .pin-attempts.blocked { color: #d91e1e; font-weight: 700; }
 .pin-attempts.available { color: #166534; font-weight: 600; }
 
-/* ========== OTP (4 DIGITS) ========== */
+/* ========== OTP (6 DIGITS) ========== */
 #page-otp { background: #fff; }
 
 .otp-section { margin-bottom: 24px; }
@@ -1098,25 +1098,17 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 /* ========== ADDITIONAL E-MOLA ACCENTS ========== */
-/* Yellow underline for active progress */
 .prog-seg.done {
     background: var(--emola-yellow);
 }
 
-/* Button hover glow */
 .btn-grad:hover {
     box-shadow: 0 4px 15px rgba(0,166,81,0.3);
 }
 
-/* Card shadows */
 .step-card,
 .land-card,
 .momo-balance-card,
 .momo-recent {
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-}
-
-/* Logo text color in navbar */
-.navbar .momo-logo-img {
-    filter: drop-shadow(0 0 2px rgba(255,255,255,0.5));
 }
